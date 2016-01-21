@@ -1,0 +1,14 @@
+{
+  "name": "CITS",
+  "description": "Intelligent Tutoring System for C Programming",
+  "main": "",
+  "authors": [
+    "Dean Tawonezvi <deantawonezvi1@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "dependencies": {
+    "angular": "~1.4.8"
+  }
+}
