@@ -11,11 +11,11 @@ module.exports = function(passport){
 
   /* GET login page. */
   router.get('/', function(req, res) {
-    // Display the Login page with any flash message, if any
+
     res.render('index', { message: req.flash('message') });
   });
   router.get('/login', function(req, res) {
-    // Display the Login page with any flash message, if any
+
     res.render('login', { message: req.flash('message') });
   });
 
@@ -52,12 +52,16 @@ module.exports = function(passport){
 
 
 
-  router.get('/profile', isLoggedIn, function(req, res){
+    router.get('/profile', isLoggedIn, function(req, res){
     res.render('profile.ejs', { user: req.user });
   });
     router.get('/another', isLoggedIn, function(req, res){
         res.render('another.ejs', {user:req.user});
     });
+    router.get('/lessons',isLoggedIn, function(req, res) {
+        res.render('lessons.ejs', {user:req.user});
+    });
+
 
 
   return router;
