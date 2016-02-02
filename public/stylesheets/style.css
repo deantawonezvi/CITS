@@ -21,6 +21,12 @@ nav.navbar-findcond span.badge { background: #6f5499; font-weight: normal; font-
 nav.navbar-findcond span.badge.new { background: rgba(111, 84, 153, 0.80); color: #fff; }
 
 
+p{
+    font-family: Courier;
+    font-size: 17px;
+    width: 30em;
+
+}
 .ani-text {
     color: inherit;
     font-family: "Courier";

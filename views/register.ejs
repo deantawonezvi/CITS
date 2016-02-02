@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
     <link rel="stylesheet" href="/stylesheets/test.css">
     <link rel="stylesheet" href="/stylesheets/theme-button.css">
+    <link rel="stylesheet" href="/stylesheets/animsition.min.css">
     <style>
         body 		{ padding-top:80px; }
     </style>
 </head>
 <body>
 <div class="container">
-
+    <div class="animsition">
     <div class="col-sm-6 col-sm-offset-3">
 
         <h1><span class="fa fa-sign-in"></span> Signup</h1>
@@ -42,13 +43,16 @@
 
         <p>Already have an account? <a href="/login">Login</a></p>
         <p>Or go <a href="/">home</a>.</p>
-
+    </div>
     </div>
     <% include partials/svgpartial.ejs%>
 
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
     <script src="/javascripts/test.js"></script>
+    <script src="/javascripts/animsition.min.js"></script>
+
+    <%include partials/animsition.ejs%>
 
 </div>
 </body>
