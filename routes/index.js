@@ -55,6 +55,11 @@ module.exports = function(passport){
     router.get('/profile', isLoggedIn, function(req, res){
     res.render('profile.ejs', { user: req.user });
   });
+
+    router.post('/profile', function(req,res){
+        console.log(req.body.skill_level);
+        res.redirect('/');
+    });
     router.get('/another', isLoggedIn, function(req, res){
         res.render('another.ejs', {user:req.user});
     });
