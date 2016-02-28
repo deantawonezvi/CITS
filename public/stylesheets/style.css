@@ -78,3 +78,8 @@ p{
 ::selection{
     background: black;
 }
+
+.teacher{
+    width:25%;
+    height:25%;
+}
