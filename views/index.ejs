@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/stylesheets/animsition.min.css">
 
 
+
 </head>
 <body>
 <% include partials/navbar-general.ejs%>
@@ -25,9 +26,10 @@
 
             <div class="panel-body" style="text-align: center" >
                 <img src="/images/teacher-pointing-blackboard.png" class="teacher">
-                <p class="ani-text" style="text-align: center"><b>Welcome to CITS!</b>
-                    <br>
-                An Intelligent Tutoring System for C Programming!<span class="cursor">|</span></p>
+
+                <br>
+                <span class="element" style="font-size: 20px; font-family: Courier"></span>
+                <br>
 
 
 
@@ -50,10 +52,18 @@
 
 <script src="/javascripts/jquery.min.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
-<script src="/javascripts/jquery.lettering-0.6.1.min.js"></script>
-<script src="/javascripts/jquery.textillate.js"></script>
 <script src="/javascripts/test.js"></script>
 <script src="/javascripts/animsition.min.js"></script>
+<script src="/javascripts/typed.min.js"></script>
+
+<script>
+    $(function(){
+        $(".element").typed({
+            strings: ["Hello There ^1000", "<b>Welcome To CITS</b> <br> An Intelligent Tutoring System for C Programming."],
+            typeSpeed: 0
+        });
+    });
+</script>
 
 <%include partials/animsition.ejs%>
 </body>
