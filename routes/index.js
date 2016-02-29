@@ -67,6 +67,10 @@ module.exports = function(passport){
         res.render('lessons.ejs', {user:req.user});
     });
 
+    router.get('*', function(req,res){
+        res.render('404.ejs');
+    });
+
 
 
   return router;
