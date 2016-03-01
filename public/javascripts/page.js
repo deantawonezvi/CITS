@@ -1,10 +1,3 @@
-swal({
-    title: "LESSON ONE!",
-    timer: 2000,
-    showConfirmButton: false
-});
-
-
 $(function(){
     $('div.product-chooser').not('.disabled').find('div.product-chooser-item').on('click', function(){
         $(this).parent().parent().find('div.product-chooser-item').removeClass('selected');
