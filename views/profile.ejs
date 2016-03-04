@@ -1,4 +1,4 @@
-<!-- views/index.ejs -->
+
 <!doctype html>
 <html>
 <head>
@@ -11,7 +11,11 @@
 
 
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.css">
+    <script src="/javascripts/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/animsition.min.css">
+
+
     <style>
         body 		{ padding-top:80px; }
         div.clear
@@ -86,9 +90,14 @@
 <% include partials/navbar-authenticated.ejs%>
 
 
-<%if (user.username ==='dean'){%>
+<%if (user.skill_level == undefined){%>
 <% include partials/review.ejs%>
+<%} else{%>
+
+<%include lessons.ejs%>
+
 <%}%>
+
 
 <% include partials/svgpartial.ejs%>
 
@@ -97,9 +106,11 @@
 <script src="/javascripts/jquery.min.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
 <script src="/javascripts/test.js"></script>
-<script src="/javascripts/sweetalert.min.js"></script>
 <script src="/javascripts/page.js"></script>
 <script src="/javascripts/typed.min.js"></script>
+<script src="/javascripts/animsition.min.js"></script>
+<%include partials/animsition.ejs%>
+
 <script>
     $(function(){
         $(".element").typed({
@@ -108,6 +119,7 @@
         });
     });
 </script>
+
 
 </body>
 </html>
