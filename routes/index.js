@@ -58,12 +58,36 @@ module.exports = function(passport){
 
     router.post('/profile', function(req,res){
         req.user.skill_level = req.body.skill_level;
-         req.user.save(function(err){
+
+        req.user.save(function(err){
              if(err)
                 return err;
          });
         res.redirect('/profile');
     });
+
+    router.post('/lesson_1', function(req,res){
+        req.user.lesson_counter = 1;
+
+        req.user.save(function(err){
+            if(err)
+                return err;
+        });
+        res.redirect('/lesson_1');
+    });
+
+    router.get('/lesson_1',isLoggedIn, function(req,res){
+
+    res.render('lesson1',{user:req.user});
+
+    });
+
+
+
+
+
+
+
     router.get('/another', isLoggedIn, function(req, res){
         res.render('another.ejs', {user:req.user});
     });
