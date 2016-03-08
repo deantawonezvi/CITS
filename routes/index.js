@@ -16,13 +16,14 @@ module.exports = function(passport){
   });
   router.get('/login', function(req, res) {
 
+
     res.render('login', { message: req.flash('message') });
   });
 
   /* Handle Login POST */
   router.post('/login', passport.authenticate('login', {
     successRedirect: '/profile',
-    failureRedirect: '/signup',
+    failureRedirect: '/login',
     failureFlash : true
   }));
 
@@ -64,6 +65,8 @@ module.exports = function(passport){
                 return err;
          });
         res.redirect('/profile');
+        res.redirect('/profile');
+
     });
 
     router.post('/lesson_1', function(req,res){
@@ -73,21 +76,17 @@ module.exports = function(passport){
             if(err)
                 return err;
         });
-        res.redirect('/lesson_1');
+        res.redirect('/profile');
+    });
+
+    router.post('/lesson_2',function(req,res){
+
+
     });
 
     router.get('/lesson_1',isLoggedIn, function(req,res){
-
     res.render('lesson1',{user:req.user});
-
     });
-
-
-
-
-
-
-
     router.get('/another', isLoggedIn, function(req, res){
         res.render('another.ejs', {user:req.user});
     });

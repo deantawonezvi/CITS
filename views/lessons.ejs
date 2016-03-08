@@ -1,6 +1,6 @@
-<%if(user.skill_level == 'beginner') {%>
+<%if(user.lesson_counter == undefined) {%>
 
 <% include partials/lessons/intro_c.ejs%>
-<%} else {%>
-Another Page
+<%} if(user.lesson_counter == 1) {%>
+<% include lesson1.ejs%>
 <%}%>

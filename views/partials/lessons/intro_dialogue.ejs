@@ -7,4 +7,17 @@
         });
     });
 </script>
+<%} if(user.lesson_counter == 1) {%>
+<script>
+    $(function(){
+        $(".element").typed({
+            strings: ["The very first thing you need to do, before starting out in C, is to make sure that you have a <u><b>compiler</b></u>.<br> ^1000" +
+                      "What is a <u><b>compiler</b></u>, you ask?<br> ^1500" +
+                      "A compiler turns the program that you write into an <b>executable</b> that your computer can actually understand and run.<br>" +
+                       "If you're taking a course, you probably have one provided through your school ^1000. If you're starting out on your own,^1000 your best bet is to use Code::Blocks with MinGW . If you're on Linux, you can use gcc, and if you're on Mac OS X, you can use XCode. If you haven't yet done so, go ahead and get a compiler set up--you'll need it for the rest of the tutorial."],
+            typeSpeed: 17
+        });
+    });
+</script>
+
 <%}%>
