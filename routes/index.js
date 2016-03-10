@@ -81,6 +81,16 @@ module.exports = function(passport){
 
     router.post('/lesson_2',function(req,res){
 
+        req.user.update({lesson_counter:2}, function(err){
+            if (err){
+                return err;
+            }
+
+        });
+        res.redirect('/profile');
+
+
+
 
     });
 
