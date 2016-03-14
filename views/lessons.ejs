@@ -4,5 +4,8 @@
 <%} if(user.lesson_counter == 1) {%>
 <% include lesson1.ejs%>
 <%} if(user.lesson_counter == 2) {%>
-Anything
+<% include lesson2.ejs%>
+<%} if(user.quiz_counter==1){%>
+<%include quiz1.ejs%>
 <%}%>
+

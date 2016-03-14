@@ -14,6 +14,8 @@
     <script src="/javascripts/sweetalert.min.js"></script>
     <script src="/javascripts/jquery.min.js"></script>
 
+
+
     <script type = "text/javascript" >
         history.pushState(null, null, 'profile');
         window.addEventListener('popstate', function(event) {
@@ -98,14 +100,14 @@
 
 <% include partials/navbar-authenticated.ejs%>
 
+<div class="animsition">
 
 <%if (user.skill_level == undefined){%>
 <% include partials/review.ejs%>
 <%} else{%>
-
 <%include lessons.ejs%>
-
 <%}%>
+</div>
 
 
 <% include partials/svgpartial.ejs%>
@@ -116,8 +118,25 @@
 <script src="/javascripts/page.js"></script>
 <script src="/javascripts/animsition.min.js"></script>
 <script src="/javascripts/typed.min.js"></script>
+<script src="/javascripts/ace-builds-master/src-min-noconflict/ace.js"></script>
+
 
 <%include partials/animsition.ejs%>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/eclipse");
+    editor.getSession().setMode("ace/mode/c_cpp");
+    editor.setReadOnly(true);
+</script>
+<script>
+    $(document).ready(function () {
+        $('.material-button-toggle').click(function () {
+            $(this).toggleClass('open');
+            $('.option').toggleClass('scale-on');
+        });
+    });
+</script>
+
 
 
 <%if (user.skill_level == undefined) {%>

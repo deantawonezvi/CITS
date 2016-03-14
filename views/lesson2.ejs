@@ -1,7 +1,28 @@
-<div class="container">
+<div class="container" style="font-family: Courier;">
     <div class="panel panel-default">
-        <div class="panel-heading"></div>
+        <div class="panel-heading" style="text-align: center;font-size: x-large"><i class="fa fa-terminal"></i>
+            C Programs</div>
             <div class="panel-body">
+                Every full C program begins inside a function called <b>"main()"</b>.<br>
+                A function is simply a collection of commands that do <b>"something"</b>.
+                <u><b>The main function is always called when the program first executes.</b></u><br>
+                From main, we can call other functions, whether they be written by us or by others or use built-in language features.<br>
+                To access the standard functions that comes with your compiler, you need to include a header with the #include directive.
+                What this does is effectively take everything in the header and paste it into your program.<br><br>
+                Let's look at a working program :
+                <div id="editor" style="width:400px; height:120px; margin-left: 375px;">#include &lt stdio.h &gt
+int main()
+{
+printf( "I am alive!  Beware.\n" );
+getchar();
+return 0;
+}
+                </div>
+
         </div>
     </div>
+    <form method="post"action="/lesson_3">
+    <%include partials/understand_button.ejs%>
+    </form>
+
 </div>

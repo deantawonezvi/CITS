@@ -14,10 +14,12 @@
     "ejs": "~2.3.2",
     "express": "~4.13.0",
     "express-session": "^1.11.3",
+    "karma": "^0.13.22",
     "mongoose": "^4.0.7",
     "morgan": "~1.6.1",
     "natural": "^0.2.1",
     "node-rules": "^3.0.3",
+    "nools": "^0.4.1",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0"
