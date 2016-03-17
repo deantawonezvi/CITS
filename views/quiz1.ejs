@@ -2,20 +2,72 @@
 
     <div class="panel panel-default">
 
-        <div class="panel-heading">
+        <div class="panel-heading" style="text-align: center; font-size: x-large; color: #6F5499"><i class="fa fa-question"></i>
             Introductory Quiz
         </div>
 
-        <div class="panel-body">
-           <form method="post" action="/quiz_1">
-               <h3>In your own words define what a main functions is?</h3>
-               <input type="text" name="main_function">
-               <button type="submit">Yes</button>
-           </form>
+        <div class="panel-body" >
 
+            <div class="question1" ng-app>
+                <div class="questions"></div>
+                <h4>When is the main function called?</h4>
+                <h5>A main function is called: <span ng-bind = "answer"></span></h5>
+                <input type="text" name="main_function" ng-model="answer" style="border-color: #6F5499 "><br><br>
+                <button class="btn btn-outlined btn-theme btn-lg" data-wow-delay="0.7s"  style="border-radius: 0px">Next Question</button>
+            </div>
 
-        </div>
+            <div class="question2">
+                <div class="question_2"></div>
+                <form id="myform" name="myform" method="post" action="/quiz_1">
+                        <textarea rows="13" cols="55" name="code" contenteditable="true">
+                        #include &lt;stdio.h&gt;
 
-    </div>
+                        {
+                        printf("Hello World from C");
+                        return 0;
+                        }
+                            </textarea>
+
+                    <br/>
+                    <br />
+                     Output : <%=out%>
+
+                    <input type="submit" value="submit"  name="submit" />
+                </form>
+
+            </div>
 
 </div>
+<script>
+    $(function(){
+        $(".questions").typed({
+            strings: ["<h3>Welcome to your first evaluation quiz!</h3>"," "],
+            typeSpeed: 20,
+            showCursor: false
+        });
+    });
+</script>
+<script>
+    $(function(){
+        $(".question_2").typed({
+            strings: ["<h3>For the following code snippet insert the main function</h3>"," "],
+            typeSpeed: 20,
+            showCursor: false
+        });
+    });
+</script>
+
+        <script>
+            $(document).ready(function(){
+                $(".question2").hide();
+
+
+                $("button").click(function(){
+                    event.preventDefault();
+                    $(".question1").hide(2000);
+                    $(".question2").show("fast");
+                });
+            });
+        </script>
+</div>
+        </div>

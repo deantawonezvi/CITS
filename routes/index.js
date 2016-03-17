@@ -1,7 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var natural = require('natural');
+var nools = require('nools');
 var classifier = new natural.BayesClassifier();
+var compiler = require('compilex');
+var option = {stats : true};
+compiler.init(option);
+
+var output = " ";
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -21,45 +27,34 @@ module.exports = function(passport){
 
     res.render('login', { message: req.flash('message') });
   });
-
   /* Handle Login POST */
   router.post('/login', passport.authenticate('login', {
     successRedirect: '/profile',
     failureRedirect: '/login',
     failureFlash : true
   }));
-
   /* GET Registration Page */
   router.get('/signup', function(req, res){
     res.render('register',{message: req.flash('message')});
   });
-
   /* Handle Registration POST */
   router.post('/signup', passport.authenticate('signup', {
     successRedirect: '/profile',
     failureRedirect: '/signup',
     failureFlash : true
   }));
-
   /* GET Home Page */
   router.get('/home', isAuthenticated, function(req, res){
     res.render('home', { user: req.user });
   });
-
   /* Handle Logout */
   router.get('/signout', function(req, res) {
     req.logout();
     res.redirect('/');
   });
-
-
-
-
     router.get('/profile', isLoggedIn, function(req, res){
-    res.render('profile.ejs', { user: req.user });
-  });
-
-    router.post('/profile', function(req,res){
+    res.render('profile.ejs', { user: req.user, out:output });
+  });router.post('/profile', function(req,res){
         req.user.skill_level = req.body.skill_level;
 
         req.user.save(function(err){
@@ -70,7 +65,6 @@ module.exports = function(passport){
         res.redirect('/profile');
 
     });
-
     router.post('/lesson_1', function(req,res){
         req.user.lesson_counter = 1;
 
@@ -126,24 +120,68 @@ module.exports = function(passport){
 
 
     });
-
+    router.get('/compile', function(req,res){
+        res.render('compilex',{user:req.user});
+    });
 
     router.post('/quiz_1', function(req,res){
 
-        classifier.addDocument('function that is called when a program executes', 'correct');
-        classifier.addDocument('buy the q\'s', 'buy');
-        classifier.addDocument('short gold', 'sell');
-        classifier.addDocument('sell gold', 'sell');
-
-        classifier.train();
-
-        console.log(classifier.classify(req.body.main_function));
 
 
 
 
+        var code = req.body.code;
+
+        var envData = { OS : "windows" , cmd : "g++"};
+        compiler.compileCPP(envData , code  , function (data) {
+            if(data.error)
+            {
+                console.log(data.error);
+            }
+            else
+            {
+                res.redirect('/profile');
+               output = data.output;
+            }
+        });
 
 
+
+
+    });
+
+    router.post('/compilecode' , function (req , res ) {
+
+
+        var code = req.body.code;
+
+        var envData = { OS : "windows" , cmd : "g++"};
+        compiler.compileCPP(envData , code  , function (data) {
+            if(data.error)
+            {
+                res.send(data.error);
+            }
+            else
+            {
+                console.log(data.output);
+            }
+        });
+
+
+    });
+
+
+
+
+
+
+
+
+
+    router.get('/fullStat' , function(req , res ){
+        compiler.fullStat(function(data){
+            res.send(data);
+        });
     });
 
 

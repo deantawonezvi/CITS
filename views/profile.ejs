@@ -9,10 +9,15 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="/stylesheets/animsition.min.css">
+    <link rel="stylesheet" href="/stylesheets/prism.css">
+
 
 
     <script src="/javascripts/sweetalert.min.js"></script>
     <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/angular.min.js"></script>
+    <script src="/javascripts/prism.js"></script>
+
 
 
 
@@ -99,7 +104,6 @@
 <body>
 
 <% include partials/navbar-authenticated.ejs%>
-
 <div class="animsition">
 
 <%if (user.skill_level == undefined){%>
@@ -109,7 +113,6 @@
 <%}%>
 </div>
 
-
 <% include partials/svgpartial.ejs%>
 
 
@@ -118,7 +121,6 @@
 <script src="/javascripts/page.js"></script>
 <script src="/javascripts/animsition.min.js"></script>
 <script src="/javascripts/typed.min.js"></script>
-<script src="/javascripts/ace-builds-master/src-min-noconflict/ace.js"></script>
 
 
 <%include partials/animsition.ejs%>

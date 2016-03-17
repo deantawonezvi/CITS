@@ -3,6 +3,7 @@
         <div class="panel-heading" style="text-align: center;font-size: x-large"><i class="fa fa-terminal"></i>
             C Programs</div>
             <div class="panel-body">
+                <div class="seq_0">
                 Every full C program begins inside a function called <b>"main()"</b>.<br>
                 A function is simply a collection of commands that do <b>"something"</b>.
                 <u><b>The main function is always called when the program first executes.</b></u><br>
@@ -10,19 +11,90 @@
                 To access the standard functions that comes with your compiler, you need to include a header with the #include directive.
                 What this does is effectively take everything in the header and paste it into your program.<br><br>
                 Let's look at a working program :
-                <div id="editor" style="width:400px; height:120px; margin-left: 375px;">#include &lt stdio.h &gt
+                <pre>
+                    <code class="language-c">
+#include &lt stdio.h &gt
 int main()
 {
 printf( "I am alive!  Beware.\n" );
 getchar();
 return 0;
-}
+}</code></pre><br><br>
+<button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
+
+                </div>
+
+                <div class="seq_1">
+                    Let's look at the elements of the program.
+                    <br><br>
+                <pre><code class="language-c">#include &lt stdio.h &gt</code></pre>
+                    The #include is a "preprocessor" directive that tells the compiler to put code from the header called stdio.h into our program before actually creating the executable. By including header files, you can gain access to many different functions--both the printf and getchar functions are included in stdio.h.
+                    <br>
+                   <button class="btn btn-outlined btn-theme btn-lg" id="seq_1" data-wow-delay="0.7s" style="border-radius: 0px">Move On</button>
+
+                </div>
+
+                <div class="seq_2">
+                    <pre><code class="language-c">int main()</code></pre>
+                    The next important line is <b>int main()</b>. This line tells the compiler that there is a function named main, and that the function returns an integer, hence int. The "curly braces" ({ and }) signal the beginning and end of functions and other code blocks.
+                <br>
+                    <button class="btn btn-outlined btn-theme btn-lg" id="seq_2" data-wow-delay="0.7s" style="border-radius: 0px">Next</button>
+
+                </div>
+
+                <div class="seq_3">
+                    <pre><code class="language-c">printf("This is easy");</code></pre>
+                    The <b>printf()</b> function is the standard C way of displaying output on the screen. The quotes tell the compiler that you want to output the literal string as-is (almost). The '\n' sequence is actually treated as a single character that stands for a newline (we'll talk about this later in more detail); for the time being, just remember that there are a few sequences that, when they appear in a string literal, are actually not displayed literally by printf and that '\n' is one of them. The actual effect of '\n' is to move the cursor on your screen to the next line. Notice the semicolon: it tells the compiler that you're at the end of a command, such as a function call. You will see that the semicolon is used to end many lines in C.
+                    <br>
+                    <button class="btn btn-outlined btn-theme btn-lg" id="seq_3" data-wow-delay="0.7s" style="border-radius: 0px">Move On</button>
+
+                </div>
+
+                <div class="seq_4">
+                    <pre><code class="language-c">getchar();</code></pre>
+                    The next command is <b>getchar()</b>. This is another function call: it reads in a single character and waits for the user to hit enter before reading the character. This line is included because many compiler environments will open a new console window, run the program, and then close the window before you can see the output. This command keeps that window from closing because the program is not done yet because it waits for you to hit enter. Including that line gives you time to see the program run.
+                    <br>
+                    <pre><code class="language-c">return 0;</code></pre>
+                    Finally, at the end of the program, we return a value from main to the operating system by using the return statement. This return value is important as it can be used to tell the operating system whether our program succeeded or not. A return value of 0 means success.
                 </div>
 
         </div>
     </div>
+    <div class="understood">
     <form method="post"action="/lesson_3">
     <%include partials/understand_button.ejs%>
     </form>
+    </div>
 
 </div>
+
+<script>
+$(document).ready( function(){
+
+    $(".seq_1").hide();
+    $(".seq_2").hide();
+    $(".seq_3").hide();
+    $(".seq_4").hide();
+    $(".understood").hide();
+
+    $("#seq_0").click(function(){
+        $(".seq_0").hide();
+        $(".seq_1").show(1500);
+    });
+    $("#seq_1").click(function(){
+        $(".seq_1").hide();
+        $(".seq_2").show(1500);
+    });
+    $("#seq_2").click(function(){
+        $(".seq_2").hide();
+        $(".seq_3").show(1500);
+    });
+    $("#seq_3").click(function(){
+        $(".seq_3").hide();
+        $(".seq_4").show(1500);
+        $(".understood").show(1500);
+    });
+
+
+});
+</script>
