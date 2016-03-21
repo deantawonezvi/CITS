@@ -4,10 +4,12 @@ var natural = require('natural');
 var nools = require('nools');
 var classifier = new natural.BayesClassifier();
 var compiler = require('compilex');
+var nlp = require('../nlp.js');
 var option = {stats : true};
 compiler.init(option);
-
 var output = " ";
+var qresonse = "";
+
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -21,7 +23,7 @@ module.exports = function(passport){
   router.get('/', function(req, res) {
 
     res.render('index', { message: req.flash('message') });
-  });
+        });
   router.get('/login', function(req, res) {
 
 
@@ -53,8 +55,9 @@ module.exports = function(passport){
     res.redirect('/');
   });
     router.get('/profile', isLoggedIn, function(req, res){
-    res.render('profile.ejs', { user: req.user, out:output });
-  });router.post('/profile', function(req,res){
+    res.render('profile.ejs', { user: req.user, out:output, q_response:qresonse });
+  });
+    router.post('/profile', function(req,res){
         req.user.skill_level = req.body.skill_level;
 
         req.user.save(function(err){
@@ -124,31 +127,55 @@ module.exports = function(passport){
         res.render('compilex',{user:req.user});
     });
 
-    router.post('/quiz_1', function(req,res){
+    router.post('/q1', function(req,res){
+
+        var q1 = nlp.q_mainfunction(req.body.main_function);
+
+        if(q1 == 1){
+            qresonse = 1;
+        }
+        if(q1 == 1.5){
+            qresonse = 1.5;
+        }
+        if(q1 == 2){
+            qresonse = 2;
+        }
 
 
+    res.redirect('/profile');
+    });
 
 
+    router.post('/q3', function(req,res){
+        var q3 = nlp.q_printf(req.body.printf);
 
-        var code = req.body.code;
 
-        var envData = { OS : "windows" , cmd : "g++"};
-        compiler.compileCPP(envData , code  , function (data) {
-            if(data.error)
-            {
-                console.log(data.error);
-            }
-            else
-            {
-                res.redirect('/profile');
-               output = data.output;
-            }
-        });
+        if(q3 == 1){
+            qresonse = 1;
+        }
+        if(q3 == 1.5){
+            qresonse = 1.5;
+        }
+        if(q3 == 2){
+            qresonse = 2;
+        }
+        console.log(q3);
+        res.redirect('/profile');
+
+
 
 
 
 
     });
+
+
+
+
+
+
+
+
 
     router.post('/compilecode' , function (req , res ) {
 
@@ -163,7 +190,7 @@ module.exports = function(passport){
             }
             else
             {
-                console.log(data.output);
+                output = data.output
             }
         });
 

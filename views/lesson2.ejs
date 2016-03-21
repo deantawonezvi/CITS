@@ -20,7 +20,7 @@ printf( "I am alive!  Beware.\n" );
 getchar();
 return 0;
 }</code></pre><br><br>
-<button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
+                    <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
 
                 </div>
 
@@ -30,14 +30,18 @@ return 0;
                 <pre><code class="language-c">#include &lt stdio.h &gt</code></pre>
                     The #include is a "preprocessor" directive that tells the compiler to put code from the header called stdio.h into our program before actually creating the executable. By including header files, you can gain access to many different functions--both the printf and getchar functions are included in stdio.h.
                     <br>
-                   <button class="btn btn-outlined btn-theme btn-lg" id="seq_1" data-wow-delay="0.7s" style="border-radius: 0px">Move On</button>
+                    <button class="btn btn-outlined btn-theme btn-lg" id="seq_1back" data-wow-delay="0.7s" style="border-radius: 0px">Take Me Back</button>
+
+                    <button class="btn btn-outlined btn-theme btn-lg" id="seq_1" data-wow-delay="0.7s" style="border-radius: 0px">Move On</button>
 
                 </div>
 
                 <div class="seq_2">
                     <pre><code class="language-c">int main()</code></pre>
                     The next important line is <b>int main()</b>. This line tells the compiler that there is a function named main, and that the function returns an integer, hence int. The "curly braces" ({ and }) signal the beginning and end of functions and other code blocks.
-                <br>
+                <br><br>
+                    <button class="btn btn-outlined btn-theme btn-lg" id="seq_2back" data-wow-delay="0.7s" style="border-radius: 0px">Back</button>
+
                     <button class="btn btn-outlined btn-theme btn-lg" id="seq_2" data-wow-delay="0.7s" style="border-radius: 0px">Next</button>
 
                 </div>
@@ -46,6 +50,8 @@ return 0;
                     <pre><code class="language-c">printf("This is easy");</code></pre>
                     The <b>printf()</b> function is the standard C way of displaying output on the screen. The quotes tell the compiler that you want to output the literal string as-is (almost). The '\n' sequence is actually treated as a single character that stands for a newline (we'll talk about this later in more detail); for the time being, just remember that there are a few sequences that, when they appear in a string literal, are actually not displayed literally by printf and that '\n' is one of them. The actual effect of '\n' is to move the cursor on your screen to the next line. Notice the semicolon: it tells the compiler that you're at the end of a command, such as a function call. You will see that the semicolon is used to end many lines in C.
                     <br>
+                    <button class="btn btn-outlined btn-theme btn-lg" id="seq_3back" data-wow-delay="0.7s" style="border-radius: 0px">Back</button>
+
                     <button class="btn btn-outlined btn-theme btn-lg" id="seq_3" data-wow-delay="0.7s" style="border-radius: 0px">Move On</button>
 
                 </div>
@@ -56,6 +62,8 @@ return 0;
                     <br>
                     <pre><code class="language-c">return 0;</code></pre>
                     Finally, at the end of the program, we return a value from main to the operating system by using the return statement. This return value is important as it can be used to tell the operating system whether our program succeeded or not. A return value of 0 means success.
+                    <br><button class="btn btn-outlined btn-theme btn-lg" id="seq_4back" data-wow-delay="0.7s" style="border-radius: 0px">Previous</button>
+
                 </div>
 
         </div>
@@ -81,18 +89,44 @@ $(document).ready( function(){
         $(".seq_0").hide();
         $(".seq_1").show(1500);
     });
+    $("#seq_1back").click(function(){
+
+        $(".seq_0").show(1500);
+        $(".seq_1").hide();
+    });
+
+
+
     $("#seq_1").click(function(){
         $(".seq_1").hide();
         $(".seq_2").show(1500);
     });
+    $("#seq_2back").click(function(){
+        $(".seq_1").show(1500);
+        $(".seq_2").hide();
+
+    });
+
+
     $("#seq_2").click(function(){
         $(".seq_2").hide();
         $(".seq_3").show(1500);
     });
+    $("#seq_3back").click(function(){
+        $(".seq_2").show(1500);
+        $(".seq_3").hide();
+
+    });
+
     $("#seq_3").click(function(){
         $(".seq_3").hide();
         $(".seq_4").show(1500);
         $(".understood").show(1500);
+    });
+    $("#seq_4back").click(function(){
+        $(".seq_3").show(1500);
+        $(".seq_4").hide();
+        $(".understood").hide(1500);
     });
 
 
