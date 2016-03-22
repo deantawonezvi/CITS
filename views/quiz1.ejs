@@ -14,7 +14,6 @@
                 <div class="qsn1">
                     <div class="questions"></div>
                     <form id="myform" name="myform" method="post" action="/q1">
-
                     <h4>When is the main function called?</h4>
                         <pre><code class="language-c">int main()</code></pre>
                         <h4>The main function is called: <span ng-bind = "answer" style="color: #6F5499 "></span></h4>
@@ -25,19 +24,25 @@
                         $(document).ready(function(){
                             $(".question3").hide();
                             $(".question2").hide();
-                        })
+                        });
                     </script>
                 </div>
                         <% if(q_response == 1){%>
-                        <div class="alert alert-success fade in">
+                        <div id="correct">
+                        <div class="alert alert-success fade in" id="correct">
                             <div class="q1correct"></div>
                         </div>
-                        <div></div>
+                            <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+                        </div>
                         <script>
                             $(document).ready(function(){
                                 $(".qsn1").hide();
                                 $(".question2").hide();
-                            })
+                            });
+                            $('#moveOn').on('click',function(){
+                                $(".question2").show(1500);
+                                $("#correct").hide();
+                            });
                         </script>
                          <%}if(q_response == 2){%>
                             <div class="alert alert-danger">
@@ -55,15 +60,18 @@
 
             </div>
 
+            <!--End of First Question-->
+
         <!--Second Question-->
              <hr>
+            <form id="myform" name="myform" method="post" action="/compilecode">
 
             <div class="question2">
+
                 <div class="question_2"></div>
                     <code>
                         <textarea rows="13" cols="55" name="code" contenteditable="true">
-#include &lt;stdio.h&gt
-int main()
+#include &lt;stdio.h&gt;
 {
 printf("Hello World from C \n");
 return 0;
@@ -76,9 +84,9 @@ return 0;
                     <button class="btn btn-outlined btn-theme btn-md" type="submit"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
 
             </div>
-
+</form>
             <hr>
-
+            <!--End of Question-->
         <!--Third Question-->
             <div class="question3">
                 <div class="qsn3">

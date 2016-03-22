@@ -9,6 +9,7 @@ var option = {stats : true};
 compiler.init(option);
 var output = " ";
 var qresonse = "";
+var q_progress = 0;
 
 
 var isAuthenticated = function (req, res, next) {
@@ -133,6 +134,7 @@ module.exports = function(passport){
 
         if(q1 == 1){
             qresonse = 1;
+            q_progress = q_progress + 1;
         }
         if(q1 == 1.5){
             qresonse = 1.5;
@@ -161,12 +163,6 @@ module.exports = function(passport){
         }
         console.log(q3);
         res.redirect('/profile');
-
-
-
-
-
-
     });
 
 
@@ -190,7 +186,8 @@ module.exports = function(passport){
             }
             else
             {
-                output = data.output
+                output = data.output;
+                res.redirect('/profile');
             }
         });
 
