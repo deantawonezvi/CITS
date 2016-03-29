@@ -12,6 +12,11 @@ mongoose.connect(dbConfig.url);
 
 var app = express();
 
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -42,7 +47,7 @@ app.use(flash());
 var initPassport = require('./passport/init');
 initPassport(passport);
 
-var routes = require('./routes/index')(passport);
+var routes = require('./routes/index')(passport,io);
 app.use('/', routes);
 
 /// catch 404 and forward to error handler
@@ -64,4 +69,4 @@ if (app.get('env') === 'development') {
   });
 }
 
-module.exports = app;
+module.exports = {app: app, server: server};

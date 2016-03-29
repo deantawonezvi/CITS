@@ -7,9 +7,9 @@ var compiler = require('compilex');
 var nlp = require('../nlp.js');
 var option = {stats : true};
 compiler.init(option);
-var output = " ";
+var output = "";
 var qresonse = "";
-var q_progress = 0;
+var progress = 0;
 
 
 var isAuthenticated = function (req, res, next) {
@@ -18,7 +18,7 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/');
 };
 
-module.exports = function(passport){
+module.exports = function(passport,io){
 
   /* GET login page. */
   router.get('/', function(req, res) {
@@ -56,7 +56,7 @@ module.exports = function(passport){
     res.redirect('/');
   });
     router.get('/profile', isLoggedIn, function(req, res){
-    res.render('profile.ejs', { user: req.user, out:output, q_response:qresonse });
+    res.render('profile.ejs', { user: req.user, out:output, q_response:qresonse, q_progress: progress });
   });
     router.post('/profile', function(req,res){
         req.user.skill_level = req.body.skill_level;
@@ -130,11 +130,13 @@ module.exports = function(passport){
 
     router.post('/q1', function(req,res){
 
+
+        progress = 1;
         var q1 = nlp.q_mainfunction(req.body.main_function);
 
         if(q1 == 1){
             qresonse = 1;
-            q_progress = q_progress + 1;
+
         }
         if(q1 == 1.5){
             qresonse = 1.5;
@@ -142,6 +144,7 @@ module.exports = function(passport){
         if(q1 == 2){
             qresonse = 2;
         }
+     console.log(qresonse);
 
 
     res.redirect('/profile');
@@ -151,7 +154,7 @@ module.exports = function(passport){
     router.post('/q3', function(req,res){
         var q3 = nlp.q_printf(req.body.printf);
 
-
+        progress = 2;
         if(q3 == 1){
             qresonse = 1;
         }
@@ -162,6 +165,8 @@ module.exports = function(passport){
             qresonse = 2;
         }
         console.log(q3);
+
+
         res.redirect('/profile');
     });
 
@@ -173,9 +178,9 @@ module.exports = function(passport){
 
 
 
-    router.post('/compilecode' , function (req , res ) {
+    router.post('/q2' , function (req , res ) {
 
-
+        progress = 3;
         var code = req.body.code;
 
         var envData = { OS : "windows" , cmd : "g++"};

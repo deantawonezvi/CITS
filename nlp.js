@@ -11,6 +11,8 @@ module.exports = {
         classifier.addDocument("at the beginning of the program","correct");
         classifier.addDocument("at the start of the program","correct");
         classifier.addDocument("When the program first executes","correct");
+        classifier.addDocument("Just under #include","correct");
+
 
         classifier.train();
 
@@ -61,5 +63,21 @@ module.exports = {
 
 
 };
+
+classifier.addDocument("at the beginning of the program","correct");
+classifier.addDocument("at the start of the program","correct");
+classifier.addDocument("When the program first executes","correct");
+classifier.addDocument("Just under #include","correct");
+
+
+classifier.train();
+
+classifier.classify("at the beginning of the program");
+console.log(classifier.getClassifications("at the beginning of the program"));
+
+
+
+
+
 
 

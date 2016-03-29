@@ -6,11 +6,11 @@
             Introductory Quiz
         </div>
 
-        <div class="panel-body" >
+        <div class="panel-body" ng-app >
 
         <!--First Question-->
 
-            <div class="question1" ng-app>
+            <div class="question1" >
                 <div class="qsn1">
                     <div class="questions"></div>
                     <form id="myform" name="myform" method="post" action="/q1">
@@ -27,6 +27,7 @@
                         });
                     </script>
                 </div>
+                <%if (q_progress == 1){%>
                         <% if(q_response == 1){%>
                         <div id="correct">
                         <div class="alert alert-success fade in" id="correct">
@@ -40,7 +41,7 @@
                                 $(".question2").hide();
                             });
                             $('#moveOn').on('click',function(){
-                                $(".question2").show(1500);
+                                $(".question3").show(1500);
                                 $("#correct").hide();
                             });
                         </script>
@@ -55,7 +56,7 @@
                             })
                         </script>
                          <%}%>
-
+                <%}%>
 
 
             </div>
@@ -64,13 +65,12 @@
 
         <!--Second Question-->
              <hr>
-            <form id="myform" name="myform" method="post" action="/compilecode">
-
-            <div class="question2">
+        <div class="question2">
+            <form id="myform" name="myform" method="post" action="/q2">
 
                 <div class="question_2"></div>
                     <code>
-                        <textarea rows="13" cols="55" name="code" contenteditable="true">
+                        <textarea rows="13" cols="55" name="code" contenteditable="true" style="line-height: 15px;" >
 #include &lt;stdio.h&gt;
 {
 printf("Hello World from C \n");
@@ -80,27 +80,77 @@ return 0;
                     </code>
                     <br/>
                     <br/>
-                     Output : <br><%=out%><br>
+
                     <button class="btn btn-outlined btn-theme btn-md" type="submit"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
 
-            </div>
+
+                <%if (q_progress==3){%>
+
+                <script>
+                    $(document).ready(function(){
+                        $(".question1").hide();
+                        $(".question3").hide();
+                        $(".question2").show();
+
+
+                    });
+                </script>
+                Output : <br><%=out%><br>
+
+                <%}%>
+
+
+
 </form>
+</div>
+
             <hr>
             <!--End of Question-->
         <!--Third Question-->
-            <div class="question3">
+            <div class="question3" >
                 <div class="qsn3">
-                    <form id="myform" name="myform" method="post" action="/q1">
+                    <form id="myform" name="myform" method="post" action="/q3">
 
                         <h4>What is the purpose of the printf() function</h4>
                         <pre><code class="language-c">printf()</code></pre>
-                        <h4>The printf function : <span ng-bind = "answer" style="color: #6F5499 "></span></h4>
-                        <input type="text" name="printf" ng-model="answer" style="border-color: #6F5499" class="form-control input"><br><br>
+                        <h4>The printf function : <span ng-bind = "answer3" style="color: #6F5499 "></span></h4>
+                        <input type="text" name="printf" ng-model="answer3" style="border-color: #6F5499" class="form-control input"><br><br>
                         <button class="btn btn-outlined btn-theme btn-md"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
                     </form>
 
                 </div>
             </div>
+
+        <%if (q_progress == 2){%>
+            <% if(q_response == 1){%>
+            <div id="correct">
+                <div class="alert alert-success fade in" id="correct">
+                    <div class="q3correct"></div>
+                </div>
+                <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $(".qsn1").hide();
+                    $(".question2").hide();
+                });
+                $('#moveOn').on('click',function(){
+                    $(".question2").show(1500);
+                    $("#correct").hide();
+                });
+            </script>
+            <%}if(q_response == 2){%>
+            <div class="alert alert-danger">
+                <div class="q1wrong"></div>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $(".qsn1").hide();
+                    $(".question2").hide();
+                })
+            </script>
+            <%}%>
+            <%}%>
 
 
         </div>
