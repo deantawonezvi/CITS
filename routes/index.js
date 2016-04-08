@@ -10,6 +10,10 @@ compiler.init(option);
 var output = "";
 var qresonse = "";
 var progress = 0;
+var definition_counter = 0;
+var recognition_counter = 0;
+var applcation_counter = 0;
+
 
 
 var isAuthenticated = function (req, res, next) {
@@ -86,26 +90,18 @@ module.exports = function(passport,io){
                 }
             });
             res.redirect('/profile');
-
-
     });
-
     router.post('/lesson_3',function(req,res){
-
         if (req.body.feedback == "yes"){
-
-            req.user.update({}, function(err){
+            req.user.update({lesson_counter :3}, function(err){
                 if (err){
                     return err;
                 }
             });
-            res.redirect('/profile')
-
+            res.redirect('/profile');
         }
         if (req.body.feedback == "no"){
-
-
-
+            res.redirect('profile')
         }
         if (req.body.feedback == "quiz"){
             req.user.update({
@@ -134,10 +130,19 @@ module.exports = function(passport,io){
         progress = 1;
         var q1 = nlp.q_mainfunction(req.body.main_function);
 
+        // Correct Answer
         if(q1 == 1){
             qresonse = 1;
-
+            req.user.update({
+                learning_rate:{
+                    definition: definition_counter
+                }
+            });
+            console.log(req.user.learning_rate.definition);
         }
+
+
+        // Wrong Answer
         if(q1 == 1.5){
             qresonse = 1.5;
         }
@@ -157,6 +162,11 @@ module.exports = function(passport,io){
         progress = 2;
         if(q3 == 1){
             qresonse = 1;
+            req.user.learning_rate.definition = 1;
+            req.user.save(function(err){
+                if(err)
+                    return err;
+            });
         }
         if(q3 == 1.5){
             qresonse = 1.5;
@@ -170,14 +180,6 @@ module.exports = function(passport,io){
         res.redirect('/profile');
     });
 
-
-
-
-
-
-
-
-
     router.post('/q2' , function (req , res ) {
 
         progress = 3;
@@ -185,16 +187,68 @@ module.exports = function(passport,io){
 
         var envData = { OS : "windows" , cmd : "g++"};
         compiler.compileCPP(envData , code  , function (data) {
+
+            //Wrong Answer
             if(data.error)
             {
-                res.send(data.error);
+                var q_error = nlp.q_program_mainfunction(data.error);
+                console.log (data.error);
+                //wrong declaration
+                if(q_error == 0){
+                   qresonse = 0;
+                    res.redirect('/profile');
+                }
+                //messed with code
+                if(q_error == 0.5 ){
+                    qresonse = 0.5;
+                    res.redirect('/profile');
+                }
+                //wrong position
+                if(q_error == 1 ){
+                    qresonse = 1;
+                    res.redirect('/profile');
+                }
+
             }
+            //Correct Answer
             else
             {
+                qresonse = 2;
                 output = data.output;
                 res.redirect('/profile');
             }
+            console.log(qresonse);
         });
+
+
+    });
+
+
+  ///////Rules For Quiz Clasification///////////
+    router.post('/endofq1' , function(req,res){
+
+        var flow = nools.flow("Quiz 1 Deficiency Classification", function (flow) {
+
+
+            this.rule("Application Deficiency", [Number, "n", "n < 4"], function (facts) {
+                console.log("tttttt");
+            });
+            this.rule("Recognition Deficiency", [Number, "n", "n < 4"], function (facts) {
+                console.log("tttttt");
+            });
+            this.rule("Definition Deficiency", [Number, "n", "n < 4"], function (facts) {
+                console.log("tttttt");
+            });
+        });
+
+
+        var session = flow.getSession();
+
+        session.assert(3);
+        session.match();
+
+
+
 
 
     });

@@ -1,0 +1,135 @@
+
+<!--No Deficiency-->
+<% if(req.user.learning_deficiency == null){%>
+<div class="container" style="font-family: Courier;">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
+            Variables</div>
+        <div class="panel-body">
+            <div class="seq_0">
+
+                <div class="variablesintro"></div>
+
+
+                <script>
+                    $(function(){
+                        $(".variablesintro").typed({
+                            strings: ["<h4> In programming, data is stored in variables. </h4>"],
+                            typeSpeed: 20,
+                            showCursor: false
+                        });
+                    });
+                </script>
+                <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<!--Definition Deficiency-->
+<%}if(req.user.learning_deficiency.definition > 0 && req.user.learning_deficiency.application == 0 && req.user.learning_deficiency.recognition == 0 ){%>
+<div class="container" style="font-family: Courier;">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
+            Variables</div>
+        <div class="panel-body">
+            <div class="seq_0">
+
+                <div class="variablesintro" style="text-align: center"></div>
+
+
+                <script>
+                    $(function(){
+                        $(".variablesintro").typed({
+                            strings: ["<h4> I noticed that from the previous lesson you had some problems in defining some of the . </h4>"],
+                            typeSpeed: 20,
+                            showCursor: false
+                        });
+                    });
+                </script>
+                <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<!--Application Deficiency-->
+<%}if(req.user.learning_deficiency.application > 0 && req.user.learning_deficiency.definition == 0 && req.user.learning_deficiency.recognition == 0 ){%>
+<div class="container" style="font-family: Courier;">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
+            Variables</div>
+        <div class="panel-body">
+            <div class="seq_0">
+
+                <div class="variablesintro"></div>
+
+
+                <script>
+                    $(function(){
+                        $(".variablesintro").typed({
+                            strings: ["<h4> In programming, data is stored in variables. </h4>"],
+                            typeSpeed: 20,
+                            showCursor: false
+                        });
+                    });
+                </script>
+                <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<%}else{%>
+<!--Overall Deficiency-->
+<div class="container" style="font-family: Courier;">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
+            Variables</div>
+        <div class="panel-body">
+            <div class="seq_0">
+
+                <div class="variablesintro"></div>
+
+
+                <script>
+                    $(function(){
+                        $(".variablesintro").typed({
+                            strings: ["<h4> In programming, data is stored in variables. </h4>"],
+                            typeSpeed: 20,
+                            showCursor: false
+                        });
+                    });
+                </script>
+                <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+<%}%>
+
+

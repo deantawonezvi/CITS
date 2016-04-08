@@ -15,11 +15,12 @@
     });
     $(function(){
         $(".q1wrong").typed({
-            strings: ["Not even close."],
+            strings: ["Not even close.<br> Typically <code class='language-c'>int main()</code> is called at the beginning of the program.<br>"],
             typeSpeed: 20,
             showCursor: false
         });
     });
+
 
     $(function(){
         $(".q3correct").typed({
@@ -28,4 +29,40 @@
             showCursor: false
         });
     });
+
+    $(function(){
+        $(".q3wrong").typed({
+            strings: ["Not even close.<br><code class='language-c'>printf()</code> basically prints the <u><b>output of a program</b></u>. "],
+            typeSpeed: 20,
+            showCursor: false
+        });
+    });
+
+    $(function(){
+        $(".wrong-declaration").typed({
+            strings: ["It seems like you missed something.<br> This is how you typically declare int main <br>" +
+            "<code class='language-c'>int main()</code>"],
+            typeSpeed: 20,
+            showCursor: false
+        });
+    });
+
+    $(function(){
+        $(".wrong-position").typed({
+            strings: ["It seems like you misplaced something.<br>The int main() function is not written inside the curly brackets<br> It is declared right under <code class='language-c'># include stdio.h</code> " +
+            "<br><br>" ],
+            typeSpeed: 28,
+            showCursor: false
+        });
+    });
+
+
+   $(function(){
+       $(".well_done").typed({
+           strings:["Well Done"],
+           typeSpeed: 18,
+           showCursor: false
+       });
+
+   })
 </script>

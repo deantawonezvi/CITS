@@ -29,8 +29,8 @@
                 </div>
                 <%if (q_progress == 1){%>
                         <% if(q_response == 1){%>
-                        <div id="correct">
-                        <div class="alert alert-success fade in" id="correct">
+                        <div id="correct1">
+                        <div class="alert alert-success fade in" id="correct1">
                             <div class="q1correct"></div>
                         </div>
                             <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
@@ -42,20 +42,47 @@
                             });
                             $('#moveOn').on('click',function(){
                                 $(".question3").show(1500);
-                                $("#correct").hide();
+                                $("#correct1").hide();
                             });
                         </script>
                          <%}if(q_response == 2){%>
+                            <div id="wrong1">
                             <div class="alert alert-danger">
                               <div class="q1wrong"></div>
+                                <button class='btn btn-outlined btn-theme btn-md' id='gotit1'>Got It</button>
+                            </div>
                             </div>
                         <script>
                             $(document).ready(function(){
                                 $(".qsn1").hide();
                                 $(".question2").hide();
-                            })
+                            });
+                            $('#gotit1').on('click',function(){
+                                $(".question3").show(1500);
+                                $("#wrong1").hide();
+                            });
+
                         </script>
-                         <%}%>
+                         <%}if (q_response == 1.5){%>
+                          <div id="wrong11">
+                           <div class="alert alert-danger">
+                             <div class="q1wrong"></div>
+                        <button class='btn btn-outlined btn-theme btn-md' id='gotit11'>Got It</button>
+                         </div>
+                            </div>
+                <script>
+                    $(document).ready(function(){
+                        $(".qsn1").hide();
+                        $(".question2").hide();
+                    });
+                    $('#gotit11').on('click',function(){
+                        $(".question3").show(1500);
+                        $("#wrong11").hide();
+                    });
+
+                </script>
+
+                            <%}%>
                 <%}%>
 
 
@@ -83,26 +110,106 @@ return 0;
 
                     <button class="btn btn-outlined btn-theme btn-md" type="submit"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
 
-
-                <%if (q_progress==3){%>
-
-                <script>
-                    $(document).ready(function(){
-                        $(".question1").hide();
-                        $(".question3").hide();
-                        $(".question2").show();
-
-
-                    });
-                </script>
-                Output : <br><%=out%><br>
-
-                <%}%>
-
-
-
 </form>
 </div>
+            <%if (q_progress==3){%>
+
+            <%if (q_response == 2){%>
+            <div class="correct2">
+                <div class="alert alert-success fade in" id="correct1">
+                    <div class="well_done"></div>
+                    <pre>
+                    <code class="language-c">
+#include &lt stdio.h &gt
+<b>int main()</b>
+{
+printf("Hello World from C \n");
+getchar();
+return 0;
+}
+                    </code></pre>
+                </div>
+                <code>int main()</code> is written right under #include
+                <form method="post" action="/endofq1">
+                    <button class="btn btn-outlined btn-theme btn-md" type="submit">Next lesson</button>
+                </form>
+            </div>
+            <script>
+            $(document).ready(function(){
+            $(".question1").hide();
+            $(".question3").hide();
+            $(".question2").hide();
+            $(".correct2").show();
+
+            });
+            </script>
+            <%}%>
+
+            <%if (q_response == 1){%>
+            <div class="wrong2">
+            <div class = "alert alert-danger">
+                Wrong Declaration
+                <div class="wrong-declacration"></div>
+            </div>
+            <code>int main()</code> is written right under #include
+        </div>
+
+
+    <script>
+        $(document).ready(function(){
+            $(".question1").hide();
+            $(".question3").hide();
+            $(".question2").hide();
+            $(".wrong2").show();
+
+        });
+    </script>
+
+            <%}%>
+            <%if (q_response == 0){%>
+            <div class="wrong21">
+            <div class = "alert alert-danger">
+            <div class="wrong-position"></div>
+            <button class='btn btn-outlined btn-theme btn-md' id='try_again'> Try again?</button>
+            </div>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $(".question1").hide();
+                    $(".question3").hide();
+                    $(".question2").hide();
+                    $(".wrong21").show();
+                    $("#try_again").on('click',function(){
+                        $(".question2").show(1500);
+                        $(".wrong21").hide();
+                    });
+
+                });
+            </script>
+            <%}%>
+            <%if (q_response == 0.5){%>
+            <div class="mess_code">
+                <div class = "alert alert-danger">
+                    Seems like you messed up the already existing code
+                    <button class='btn btn-outlined btn-theme btn-md' id='try_again'> Try again?</button>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $(".question1").hide();
+                    $(".question3").hide();
+                    $(".question2").hide();
+                    $(".mess_code").show();
+                    $("#try_again").on('click',function(){
+                        $(".question2").show(1500);
+                        $("mess_code").hide();
+                    });
+
+                });
+            </script>
+            <%}%>
+            <%}%>
+
 
             <hr>
             <!--End of Question-->
@@ -139,16 +246,48 @@ return 0;
                     $("#correct").hide();
                 });
             </script>
-            <%}if(q_response == 2){%>
+            <%}
+            if(q_response == 2){%>
+            <div class="wrong3">
             <div class="alert alert-danger">
-                <div class="q1wrong"></div>
+                <div class="q3wrong"></div>
+                <button class='btn btn-outlined btn-theme btn-md' id='gotit3'>Got It</button>
+            </div>
             </div>
             <script>
                 $(document).ready(function(){
                     $(".qsn1").hide();
                     $(".question2").hide();
-                })
+                    $(".q3wrong").show();
+                });
+
+                $('#gotit3').on('click',function(){
+                    $(".question2").show(1500);
+                    $(".wrong3").hide();
+                });
             </script>
+
+            <%}if(q_response==1.5){%>
+            <div class="wrong3">
+                <div class="alert alert-danger">
+                    <div class="q3wrong"></div>
+                    <button class='btn btn-outlined btn-theme btn-md' id='gotit3'>Got It</button>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $(".qsn1").hide();
+                    $(".question2").hide();
+                    $(".q3wrong").show();
+                });
+
+                $('#gotit3').on('click',function(){
+                    $(".question2").show(1500);
+                    $(".wrong3").hide();
+                });
+            </script>
+
+
             <%}%>
             <%}%>
 
@@ -176,5 +315,5 @@ return 0;
 <% include partials/responses.ejs%>
 
 
+    </div>
 </div>
-        </div>

@@ -7,5 +7,7 @@
 <% include lesson2.ejs%>
 <%} if(user.quiz_counter==1){%>
 <%include quiz1.ejs%>
+<%} if (user.lesson_counter == 3 || user.quiz_counter==2){ %>
+<%include lesson3.ejs%>
 <%}%>
 

@@ -7,7 +7,14 @@ module.exports = mongoose.model('User',{
     lesson_counter: Number,
     quiz_counter: Number,
     learning_rate:{
-
+        definition : Number,
+        recognition : Number,
+        application : Number
+    },
+    learning_deficiency:{
+        definition:Number,
+        recognition: Number,
+        application: Number
     }
 
 
