@@ -1,6 +1,6 @@
 
 <!--No Deficiency-->
-<% if(user.learning_deficiency == null){%>
+<% if(user.learning_deficiency == null||user.learning_deficiency.definition == 0 && user.learning_deficiency.application == 0 && user.learning_deficiency.recognition == 0 ){%>
 <div class="container" style="font-family: Courier;">
     <div class="panel panel-default">
         <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
@@ -20,11 +20,9 @@
 
     </div>
 </div>
-
-
 <%}
 <!--Definition Deficiency-->
-if(user.learning_deficiency.definition > 0 && user.learning_deficiency.application == 0 && user.learning_deficiency.recognition == 0 ){%>
+if(user.learning_deficiency.definition == 1 && user.learning_deficiency.application == 0 && user.learning_deficiency.recognition == 0 ){%>
 <div class="container" style="font-family: Courier;">
     <div class="panel panel-default">
         <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
@@ -59,7 +57,7 @@ if(user.learning_deficiency.definition > 0 && user.learning_deficiency.applicati
 
 <%}
 <!--Application Deficiency-->
-if(user.learning_deficiency.application > 0 && user.learning_deficiency.definition == 0 && user.learning_deficiency.recognition == 0 ){%>
+if(user.learning_deficiency.application == 1 && user.learning_deficiency.definition == 0 && user.learning_deficiency.recognition == 0 ){%>
 <div class="container" style="font-family: Courier;">
     <div class="panel panel-default">
         <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
@@ -92,7 +90,7 @@ if(user.learning_deficiency.application > 0 && user.learning_deficiency.definiti
 </div>
 <%}
 <!--Overall Deficiency-->
-else{%>
+if(user.learning_deficiency.application == 1 && user.learning_deficiency.definition == 1 && user.learning_deficiency.recognition == 1 ){%>
 <div class="container" style="font-family: Courier;">
     <div class="panel panel-default">
         <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>

@@ -14,7 +14,8 @@ module.exports = {
         classifier.addDocument("Just under #include","correct");
         classifier.addDocument("does not", "wrong");
         classifier.addDocument("cannot cannot display the output of the program", "wrong");
-
+        classifier.addDocument("input of the program","wrong");
+        classifier.addDocument(["not","cannot","does not"], "wrong");
         classifier.train();
 
         classifier.classify(answer);
@@ -34,13 +35,16 @@ module.exports = {
     q_printf : function(answer1){
 
         classifier.addDocument("displays output to the screen","correct");
+        classifier.addDocument("display the output","correct");
+        classifier.addDocument("display the output of the program","correct");
         classifier.addDocument("shows output to the screen","correct");
+        classifier.addDocument("show the output of a program to the screen","correct");
+        classifier.addDocument("prints the output to the screen","correct");
         classifier.addDocument("reveals the output of the program","correct");
-        classifier.addDocument("does not display the output of the program", "wrong");
+        classifier.addDocument("does not print the output of the program", "wrong");
         classifier.addDocument("display the input of the program", "wrong");
-
-
-
+        classifier.addDocument("does not show the output of the program", "wrong");
+        classifier.addDocument(["not","cannot","does not"], "wrong");
         classifier.train();
 
         classifier.classify(answer1);
@@ -64,6 +68,30 @@ module.exports = {
 
     q_getchar : function(answer3){
 
+    },
+    q_variable : function(answer4){
+        classifier.addDocument("Place where data is stored","correct");
+        classifier.addDocument("Name to refer to some location in memory","correct");
+        classifier.addDocument("Name given to a storage area that our programs can manipulate","correct");
+        classifier.addDocument("memory location in computer's memory to store data","correct");
+        classifier.addDocument("container to store the data","correct");
+        classifier.addDocument("location in memory used by a program to store data","correct");
+        classifier.addDocument(["not","cannot","does not"], "wrong");
+
+        classifier.train();
+        var x = classifier.getClassifications(answer4);
+        //Correct Answer
+        if(x[0].label =="correct" && x[0].value < 0.6){
+            return 1;
+        }
+        //Wrong Answer
+        if(x[0].label =="wrong"){
+            return 1.5;
+        }
+        //Totally Wrong Answer
+        if(x[0].label =="correct" && x[0].value>0.6){
+            return 2;
+        }
     },
 
     q_program_mainfunction: function(answer4){
@@ -92,25 +120,37 @@ module.exports = {
         else{
            return 1
         }
-
-
-
-
-        }
+    }
 
 
 };
 
 
-classifier.addDocument("displays output to the screen","correct");
-classifier.addDocument("shows output to the screen","correct");
-classifier.addDocument("reveals the output of the program","correct");
-classifier.addDocument("display the input of the program", "wrong");
-
+classifier.addDocument("place where data is stored","correct");
+classifier.addDocument("name to refer to some location in memory","correct");
+classifier.addDocument("name given to a storage area","correct");
+classifier.addDocument("memory location in computer's memory to store data","correct");
+classifier.addDocument("container to store the data of a program","correct");
+classifier.addDocument("location in memory used by a program to store data","correct");
+classifier.addDocument(["storage area","data storage","memory location","storage container","storing"], "correct");
+classifier.addDocument(["not","cannot","does not"], "wrong");
 
 classifier.train();
+var x = classifier.getClassifications("not place where data is stored");
 
-var y = classifier.getClassifications("display the input of the program");
+if(x[0].label =="correct" && x[0].value < 0.6){
+    console.log("Correct");
+    console.log(x);
+}
+if(x[0].label =="wrong"){
+    console.log("Wrong");
+    console.log(x);
+}
+if(x[0].label =="correct" && x[0].value>0.6){
+    console.log("Come On! You did not even try");
+    console.log(x);
+}
 
-console.log(y);
+
+
 

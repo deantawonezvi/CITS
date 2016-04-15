@@ -10,9 +10,9 @@ compiler.init(option);
 var output = "";
 var qresonse = "";
 var progress = 0;
-var definition_counter = 0;
-var recognition_counter = 0;
-var applcation_counter = 0;
+var definition_counter = 1;
+var recognition_counter = 1;
+var application_counter = 1;
 
 
 
@@ -133,10 +133,9 @@ module.exports = function(passport,io){
         // Correct Answer
         if(q1 == 1){
             qresonse = 1;
-            req.user.update({
-                learning_rate:{
-                    definition: definition_counter
-                }
+            req.user.learning_rate.definition = definition_counter;
+            req.user.save(function(err){
+                if(err) throw err;
             });
             console.log(req.user.learning_rate.definition);
         }
@@ -145,9 +144,18 @@ module.exports = function(passport,io){
         // Wrong Answer
         if(q1 == 1.5){
             qresonse = 1.5;
+            req.user.learning_rate.definition = 0;
+            req.user.save(function(err){
+                if(err) throw err;
+            });
+
         }
         if(q1 == 2){
             qresonse = 2;
+            req.user.learning_rate.definition = 0;
+            req.user.save(function(err){
+                if(err) throw err;
+            });
         }
      console.log(qresonse);
 
@@ -162,17 +170,26 @@ module.exports = function(passport,io){
         progress = 2;
         if(q3 == 1){
             qresonse = 1;
-            req.user.learning_rate.definition = 1;
+            definition_counter +=1;
+            req.user.learning_rate.definition = definition_counter;
             req.user.save(function(err){
-                if(err)
-                    return err;
+                if(err) throw err;
             });
+            console.log(definition_counter);
         }
         if(q3 == 1.5){
             qresonse = 1.5;
+            req.user.learning_rate.definition = 0;
+            req.user.save(function(err){
+                if(err) throw err;
+            });
         }
         if(q3 == 2){
             qresonse = 2;
+            req.user.learning_rate.definition = 0;
+            req.user.save(function(err){
+                if(err) throw err;
+            });
         }
         console.log(q3);
 
@@ -197,16 +214,31 @@ module.exports = function(passport,io){
                 if(q_error == 0){
                    qresonse = 0;
                     res.redirect('/profile');
+                    application_counter+=5;
+                    req.user.learning_rate.application = application_counter;
+                    req.user.save(function(err){
+                        if(err) throw err;
+                    });
                 }
-                //messed with code
+                //Messed with code
                 if(q_error == 0.5 ){
                     qresonse = 0.5;
                     res.redirect('/profile');
+                    application_counter+=5;
+                    req.user.learning_rate.application = application_counter;
+                    req.user.save(function(err){
+                        if(err) throw err;
+                    });
                 }
                 //wrong position
                 if(q_error == 1 ){
                     qresonse = 1;
                     res.redirect('/profile');
+                    application_counter+=5;
+                    req.user.learning_rate.application = application_counter;
+                    req.user.save(function(err){
+                        if(err) throw err;
+                    });
                 }
 
             }
@@ -216,57 +248,83 @@ module.exports = function(passport,io){
                 qresonse = 2;
                 output = data.output;
                 res.redirect('/profile');
+                req.user.learning_rate.application = application_counter;
+
+                req.user.save(function(err){
+                    if(err) throw err;
+                });
+
             }
             console.log(qresonse);
         });
-
-
     });
 
 
   ///////Rules For Quiz Clasification///////////
     router.post('/endofq1' , function(req,res){
 
+        var quiz1_score = [req.user.learning_rate.application , req.user.learning_rate.definition];
+
         var flow = nools.flow("Quiz 1 Deficiency Classification", function (flow) {
 
+            this.rule("No Deficiency", [Array, "n", "n[0]==1 && n[1]==2"], function (facts) {
+                req.user.lesson_counter = 3;
+                req.user.quiz_counter = 2;
+                req.user.learning_deficiency.definition = 0;
+                req.user.learning_deficiency.application = 0;
+                req.user.learning_deficiency.recognition = 0;
+                req.user.save(function(err){
+                    if(err) throw err;
+                });
+            });
 
-            this.rule("Application Deficiency", [Number, "n", "n < 4"], function (facts) {
-                console.log("tttttt");
+            this.rule("Definition Deficiency", [Array, "n", "n[0]==1 && n[1]<2"], function (facts) {
+                req.user.lesson_counter = 3;
+                req.user.quiz_counter = 2;
+
+                req.user.learning_deficiency.definition = 1;
+                req.user.learning_deficiency.application = 0;
+                req.user.learning_deficiency.recognition = 0;
+                req.user.save(function(err){
+                    if(err) throw err;
+                });
             });
-            this.rule("Recognition Deficiency", [Number, "n", "n < 4"], function (facts) {
-                console.log("tttttt");
+            this.rule("Application Deficiency", [Array, "n", "n[0]>5"], function (facts) {
+                req.user.lesson_counter = 3;
+                req.user.quiz_counter = 2;
+
+                req.user.learning_deficiency.definition = 0;
+                req.user.learning_deficiency.application = 1;
+                req.user.learning_deficiency.recognition = 0;
+                req.user.save(function(err){
+                    if(err) throw err;
+                });
             });
-            this.rule("Definition Deficiency", [Number, "n", "n < 4"], function (facts) {
-                console.log("tttttt");
+            this.rule("Overall Deficiency", [Array, "n", "n[0]>5 && n[1]<2 "], function (facts) {
+                req.user.lesson_counter = 3;
+                req.user.quiz_counter = 2;
+                req.user.learning_deficiency.definition = 1;
+                req.user.learning_deficiency.application = 1;
+                req.user.learning_deficiency.recognition = 1;
+                req.user.save(function(err){
+                    if(err) throw err;
+                });
             });
+
+
+
         });
-
 
         var session = flow.getSession();
 
-        session.assert(3);
+        session.assert(quiz1_score);
         session.match();
-
+        res.redirect('/profile');
 
 
 
 
     });
-
-
-
-
-
-
-
-
-
-    router.get('/fullStat' , function(req , res ){
-        compiler.fullStat(function(data){
-            res.send(data);
-        });
-    });
-
 
 
     router.get('/lesson_1',isLoggedIn, function(req,res){
