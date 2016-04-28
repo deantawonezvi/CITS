@@ -1,5 +1,7 @@
-<%if(user.lesson_counter == undefined) {%>
 
+<!--Beginner-->
+<%if(user.skill_level == "beginner"){%>
+<%if(user.lesson_counter == undefined) {%>
 <% include partials/lessons/intro_c.ejs%>
 <%} if(user.lesson_counter == 1) {%>
 <% include lesson1.ejs%>
@@ -9,5 +11,17 @@
 <%include quiz1.ejs%>
 <%} if (user.lesson_counter == 3 || user.quiz_counter==2){ %>
 <%include lesson3.ejs%>
+<%}%>
+
+<!--Intermediate-->
+<%}if(user.skill_level == "intermediate"){%>
+<%include intermediate_evaluation.ejs%>
+
+
+
+<!--Advanced-->
+<%}if(user.skill_level == "advanced"){%>
+
+
 <%}%>
 

@@ -17,7 +17,6 @@ module.exports = {
         classifier.addDocument("input of the program","wrong");
         classifier.addDocument(["not","cannot","does not"], "wrong");
         classifier.train();
-
         classifier.classify(answer);
         var y = classifier.getClassifications(answer);
         if(y[0].value <=0.6){
@@ -76,8 +75,10 @@ module.exports = {
         classifier.addDocument("memory location in computer's memory to store data","correct");
         classifier.addDocument("container to store the data","correct");
         classifier.addDocument("location in memory used by a program to store data","correct");
-        classifier.addDocument(["not","cannot","does not"], "wrong");
+        classifier.addDocument("container to store data","correct");
+        classifier.addDocument("name given to the memory location where the actual data is stored","correct");
 
+        classifier.addDocument(["not","cannot","does not"], "wrong");
         classifier.train();
         var x = classifier.getClassifications(answer4);
         //Correct Answer
@@ -126,30 +127,6 @@ module.exports = {
 };
 
 
-classifier.addDocument("place where data is stored","correct");
-classifier.addDocument("name to refer to some location in memory","correct");
-classifier.addDocument("name given to a storage area","correct");
-classifier.addDocument("memory location in computer's memory to store data","correct");
-classifier.addDocument("container to store the data of a program","correct");
-classifier.addDocument("location in memory used by a program to store data","correct");
-classifier.addDocument(["storage area","data storage","memory location","storage container","storing"], "correct");
-classifier.addDocument(["not","cannot","does not"], "wrong");
-
-classifier.train();
-var x = classifier.getClassifications("not place where data is stored");
-
-if(x[0].label =="correct" && x[0].value < 0.6){
-    console.log("Correct");
-    console.log(x);
-}
-if(x[0].label =="wrong"){
-    console.log("Wrong");
-    console.log(x);
-}
-if(x[0].label =="correct" && x[0].value>0.6){
-    console.log("Come On! You did not even try");
-    console.log(x);
-}
 
 
 

@@ -7,6 +7,7 @@ module.exports = mongoose.model('User',{
     lesson_counter: Number,
     quiz_counter: Number,
     progress:Number,
+    evaluation_progress:Number,
     learning_rate:{
         definition : Number,
         recognition : Number,
@@ -16,6 +17,11 @@ module.exports = mongoose.model('User',{
         definition:Number,
         recognition: Number,
         application: Number
+    },
+    evaluation_score:{
+        ans1:Number,
+        ans2:Number,
+        ans3:Number
     }
 
 

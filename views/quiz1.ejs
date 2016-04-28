@@ -27,7 +27,7 @@
                         });
                     </script>
                 </div>
-                <%if (q_progress == 1){%>
+                <%if (user.progress == 1){%>
                         <% if(q_response == 1){%>
                         <div id="correct1">
                         <div class="alert alert-success fade in" id="correct1">
@@ -111,13 +111,14 @@ return 0;
                     <button class="btn btn-outlined btn-theme btn-md" type="submit"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
 
 </form>
-</div>
-            <%if (q_progress==3){%>
+       </div>
+            <%if (user.progress==3){%>
 
             <%if (q_response == 2){%>
             <div class="correct2">
                 <div class="alert alert-success fade in" id="correct1">
                     <div class="well_done"></div>
+                </div>
                     <pre>
                     <code class="language-c">
 #include &lt stdio.h &gt
@@ -128,7 +129,7 @@ getchar();
 return 0;
 }
                     </code></pre>
-                </div>
+
                 <code>int main()</code> is written right under #include
                 <form method="post" action="/endofq1">
                     <button class="btn btn-outlined btn-theme btn-md" type="submit">Next lesson</button>
@@ -152,7 +153,8 @@ return 0;
                 <div class="wrong-declacration"></div>
             </div>
             <code>int main()</code> is written right under #include
-        </div>
+                <button class='btn btn-outlined btn-theme btn-md' id='try_again'> Try again?</button>
+            </div>
 
 
     <script>
@@ -170,6 +172,7 @@ return 0;
             <div class="wrong21">
             <div class = "alert alert-danger">
             <div class="wrong-position"></div>
+                <br>
             <button class='btn btn-outlined btn-theme btn-md' id='try_again'> Try again?</button>
             </div>
             </div>
@@ -191,6 +194,7 @@ return 0;
             <div class="mess_code">
                 <div class = "alert alert-danger">
                     Seems like you messed up the already existing code
+                    <br><br>
                     <button class='btn btn-outlined btn-theme btn-md' id='try_again'> Try again?</button>
                 </div>
             </div>
@@ -202,7 +206,7 @@ return 0;
                     $(".mess_code").show();
                     $("#try_again").on('click',function(){
                         $(".question2").show(1500);
-                        $("mess_code").hide();
+                        $(".mess_code").hide(1550);
                     });
 
                 });
@@ -228,7 +232,7 @@ return 0;
                 </div>
             </div>
 
-        <%if (q_progress == 2){%>
+        <%if (user.progress == 2){%>
             <% if(q_response == 1){%>
             <div id="correct">
                 <div class="alert alert-success fade in" id="correct">
@@ -243,7 +247,7 @@ return 0;
                 });
                 $('#moveOn').on('click',function(){
                     $(".question2").show(1500);
-                    $("#correct").hide();
+                    $("#correct").hide(1550);
                 });
             </script>
             <%}
@@ -263,7 +267,7 @@ return 0;
 
                 $('#gotit3').on('click',function(){
                     $(".question2").show(1500);
-                    $(".wrong3").hide();
+                    $(".wrong3").hide(1550);
                 });
             </script>
 
@@ -283,7 +287,7 @@ return 0;
 
                 $('#gotit3').on('click',function(){
                     $(".question2").show(1500);
-                    $(".wrong3").hide();
+                    $(".wrong3").hide(1550);
                 });
             </script>
 

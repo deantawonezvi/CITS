@@ -8,54 +8,144 @@
         <div class="panel-body">
             <div class="seq_0">
                 <div class="no-deficiency_intro"></div>
-
-                <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
-
+                <script>
+                    $(function(){
+                        $(".no-deficiency_intro").typed({
+                            strings: ["<h4>Adjusting Lessons....<i class='fa fa-cog fa-spin'></i></h4> ^3500 ",'<h4>Seems like everything is going well for you.</h4>','<h4>The lessons have been adjusted to suit to your needs .</h4>'],
+                            typeSpeed: 20,
+                            showCursor: false
+                        });
+                    });
+                    setTimeout( function() {
+                        document.getElementById('element_id').disabled = false;
+                    }, 6000 );
+                </script>
+                <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">Move On</button>
             </div>
-
-
         </div>
-
-
-
     </div>
 </div>
 <%}
+
+
+
+
+
+
 <!--Definition Deficiency-->
 if(user.learning_deficiency.definition == 1 && user.learning_deficiency.application == 0 && user.learning_deficiency.recognition == 0 ){%>
 <div class="container" style="font-family: Courier;">
     <div class="panel panel-default">
         <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
             Variables</div>
-        <div class="panel-body">
+        <div class="panel-body" ng-app>
             <div class="seq_0">
-
                 <div class="variablesintro" style="text-align: center"></div>
-
-
                 <script>
                     $(function(){
                         $(".variablesintro").typed({
-                            strings: ["<h4> I noticed that from the previous lesson you had some problems in defining some of the . </h4>"],
-                            typeSpeed: 20,
+                            strings: ["<h4>Adjusting Lessons....<i class='fa fa-cog fa-spin'></i></h4> ^4000 ","<h4> I noticed from the previous lesson you had some problems in defining some of the terms. </h4>"],
+                            typeSpeed: 25,
                             showCursor: false
                         });
                     });
                 </script>
-                <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px">All Good</button>
+                <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px;text-align: center">Ok</button>
+
+            </div>
+            <div class="seq_1">
+                <h4> A variable is nothing but a name given to a <b><u>storage area that our programs can manipulate</u></b>.
+                    Each variable in C has a specific type, which determines the size and layout of the variable's memory; the range of values that can be stored within that memory; and the set of operations that can be applied to the variable.
+
+                </h4>
+                <button class="btn btn-outlined btn-theme btn-lg" id="seq_1" data-wow-delay="0.7s" style="border-radius: 0px;text-align: center">Ok</button>
+            </div>
+
+            <div class="seq_2">
+                <form id="myform" name="myform" method="post" action="/q_variable">
+                    <h4>Just to make sure that we are on the same page. Could you please explain what a variable is?</h4><hr/>
+                    <h4>A variable is : <span ng-bind = "v_answer" style="color: #6F5499 "></span></h4>
+                    <input type="text" name="variable" ng-model="v_answer" style="border-color: #6F5499" class="form-control input"><br><br>
+                    <button class="btn btn-outlined btn-theme btn-md"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
+                </form>
+            </div>
+            <% if(q_response == 1){%>
+            <div id="correct_v">
+                <div class="alert alert-success fade in" id="correct1">
+                    <div class="v_correct"></div>
+                </div>
+                <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+            </div>
+            <script>
+                $(document).ready( function() {
+                    $(".seq_0").hide();
+                    $(".seq_1").hide();
+
+                    $("#moveOn").click(function(){
+                        $("#correct_v").hide();
+                        $(".seq_3").show(1500);
+                    });
+                });
+            </script>
+            <%} if(q_response == 1.5){%>
+            <div id="wrong_v">
+                <div class="alert alert-danger">
+                    <div class="v_wrong"></div>
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn2"  data-wow-delay="0.7s" style="border-radius: 0px">                </div>
+            </div>
+            <script>
+                $("#moveOn2").click(function(){
+                    $("#wrong_v").hide();
+                    $(".seq_3").show(1500);
+                });
+            </script>
+
+            <%}if (q_response == 2){%>
+            <div id="totallywrong_v">
+                <div class="alert alert-danger">
+                    <div class="v_totallywrong"></div>
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn3"  data-wow-delay="0.7s" style="border-radius: 0px">
+                </div>
+            </div>
+            <script>
+                $("#moveOn3").click(function(){
+                    $("#totallywrong_v").hide();
+                    $(".seq_3").show(1500);
+                    // TODO Add question Declaring Variable and Printing its Value
+                });
+            </script>
+
+            <%}%>
+
+
+            <div class="seq_3">
+                Before you can use a variable, you must tell the compiler about it by declaring it and telling the compiler about what its "type" is. To declare a variable you use the syntax <b><u>&ltvariable type&gt &ltname of variable&gt</u></b>;.<br>
+                For instance, a basic variable declaration might look like this:<br>
+
+                    <pre><code class="language-c">int myVariable; </code> </pre>
+                        <button class="btn btn-outlined btn-theme btn-lg" id="seq_3" data-wow-delay="0.7s" style="border-radius: 0px;text-align: center">Ok</button>
 
             </div>
 
+            <div class="seq_4">kkk
 
+
+            </div>
         </div>
-
-
-
     </div>
 </div>
 
 
 <%}
+
+
+
+
+
+
+
+
+
 <!--Application Deficiency-->
 if(user.learning_deficiency.application == 1 && user.learning_deficiency.definition == 0 && user.learning_deficiency.recognition == 0 ){%>
 <div class="container" style="font-family: Courier;">
@@ -122,5 +212,85 @@ if(user.learning_deficiency.application == 1 && user.learning_deficiency.definit
     </div>
 </div>
 <%}%>
+
+<script>
+    $(document).ready( function(){
+
+        $(".seq_1").hide();
+        $(".seq_2").hide();
+        $(".seq_3").hide();
+        $(".seq_4").hide();
+        $(".understood").hide();
+
+        $("#seq_0").click(function(){
+            $(".seq_0").hide();
+            $(".seq_1").show(1500);
+        });
+        $("#seq_1back").click(function(){
+
+            $(".seq_0").show(1500);
+            $(".seq_1").hide();
+        });
+
+
+
+        $("#seq_1").click(function(){
+            $(".seq_1").hide();
+            $(".seq_2").show(1500);
+        });
+        $("#seq_2back").click(function(){
+            $(".seq_1").show(1500);
+            $(".seq_2").hide();
+
+        });
+
+
+        $("#seq_2").click(function(){
+            $(".seq_2").hide();
+            $(".seq_3").show(1500);
+        });
+        $("#seq_3back").click(function(){
+            $(".seq_2").show(1500);
+            $(".seq_3").hide();
+
+        });
+
+        $("#seq_3").click(function(){
+            $(".seq_3").hide();
+            $(".seq_4").show(1500);
+        });
+        $("#seq_4back").click(function(){
+            $(".seq_3").show(1500);
+            $(".seq_4").hide();
+            $(".understood").hide(1500);
+        });
+
+    });
+
+    $(function(){
+        $(".v_correct").typed({
+            strings: ["<h4> Correct </h4><br> " +
+            "A variable is a name given to a storage area that our programs can manipulate"],
+            typeSpeed: 25,
+            showCursor: false
+        });
+    });
+    $(function(){
+        $(".v_wrong").typed({
+            strings: ["<h4> Wrong </h4>"],
+            typeSpeed: 25,
+            showCursor: false
+        });
+    });
+    $(function(){
+        $(".v_totallywrong").typed({
+            strings: ["<h4> Totally Wrong </h4>"],
+            typeSpeed: 25,
+            showCursor: false
+        });
+    });
+
+</script>
+
 
 
