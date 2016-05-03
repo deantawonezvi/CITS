@@ -171,11 +171,35 @@ return 0;
                     </script>
                 </div>
                 <%} if(user.revision_score.q2==1.5){%>
+                <div class="seq_1_explanation">
+                    {{q1.explanation}}
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+                </div>
                 <div class="seq_1_cheating">
-                    I seem to detect some form of cheating
+                    <h4>I seem to detect some form of cheating (but that's ok)</h4><br>
+                    <h4>I expected something like this</h4>
+                    <pre>
+                        <code class="language-c">
+#include &lt;stdio.h&gt;
+int main(){
+int sum=0;
+int i=0;
+
+for(i=0;i<=10;i++){
+printf("Sum is %d",sum);
+}
+return 0;
+}
+
+                        </code>
+                    </pre>
+                    <button class="btn btn-outlined btn-theme btn-md" id="explain"  data-wow-delay="0.7s" style="border-radius: 0px">Explanation</button>
+
                     <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
                     <script>
+                        swal("Not quite", "You're in the right direction though", "warning");
                         $(".seq_1").hide();
+                        $(".seq_1_explanation").hide();
                         $(".seq_2").hide();
                         $(".seq_3").hide();
                         $(".seq_4").hide();
@@ -183,8 +207,15 @@ return 0;
                         $('#moveOn').on('click',function(){
                             $(".seq_2").show(1500);
                             $(".seq_1_cheating").hide(1550);
+                            $(".seq_1_explanation").hide(1500);
+
+                        });
+                        $('#explain').on('click',function(){
+                            $(".seq_1_explanation").show(1500);
+                            $(".seq_1_cheating").hide(1550);
                         });
                     </script>
+
                 </div>
                 <%}if(user.revision_score.q2==2){%>
                 <div class="seq_1_logic_error">
