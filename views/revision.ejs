@@ -1,0 +1,279 @@
+<div class="container" style="font-family: Courier;" >
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-info"></i>
+            Revision
+        </div>
+            <div class="panel panel-body">
+                <%if(user.revision_progress==null){%>
+                <div class="seq_0">
+                    <div class="qsn1" ng-app>
+                        <form id="myform" name="myform" method="post" action="/q1_revision">
+                            <% if (message.length>0) { %>
+                            <div class="alert alert-danger"><%= message %>
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            </div>
+                            <% } %>
+                            <h4>What is a variable?</h4>
+                            <pre><code class="language-c">int x;</code></pre>
+                            <h4>A variable : <span ng-bind = "answer" style="color: #6F5499 "></span></h4>
+                            <input type="text" name="a_variable" ng-model="answer" style="border-color: #6F5499" class="form-control input"><br><br>
+                            <button class="btn btn-outlined btn-theme btn-md"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
+                        </form>
+                        <script>
+                            $(document).ready(function(){
+                                $(".seq_1").hide();
+                                $(".seq_2").hide();
+                                $(".seq_3").hide();
+                                $(".seq_4").hide();
+                                $(".seq_5").hide();
+                            });
+                        </script>
+                    </div>
+                </div>
+                <%}%>
+            <%if (user.revision_progress==1){%>
+                <%if (user.revision_score.q1==1){%>
+                <div class="seq_0_correct">
+                    <div class="alert alert-success">
+                        <h4>Bravo! Decent Answer.</h4><br>
+                        <h5>A variable is a name to refer to a location in storage</h5><br>
+                        <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+                        <script>
+                            swal("Good job!", "At least you know something after all", "success");
+                            $(document).ready(function(){
+                                $(".seq_1").hide();
+                                $(".seq_0").hide();
+                                $(".qsn1").hide(1550);
+                                $(".seq_0_wrong").hide();
+                                $(".seq_2").hide();
+                                $(".seq_3").hide();
+                                $(".seq_4").hide();
+                                $(".seq_5").hide();
+                                $('#moveOn').on('click',function(){
+                                    $(".seq_1").show(1500);
+                                    $(".seq_0_correct").hide(1550);
+                                });
+                            });
+                        </script>
+
+                    </div>
+
+                </div>
+                <%} if(user.revision_score.q1==1.5){%>
+                <div class="seq_0_wrong">
+                    <div class="alert alert-danger">
+                        <h4>Not Even Close.</h4><br>
+                        <h5>A variable is a name to refer to a location in storage</h5><br>
+                        <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+
+                        <script>
+                            swal("Oops!", "I think you answered the wrong question.", "error");
+                            $(document).ready(function(){
+                                $(".seq_1").hide();
+                                $(".seq_0").hide();
+                                $(".qsn1").hide(1550);
+                                $(".seq_0_wrong").hide();
+                                $(".seq_2").hide();
+                                $(".seq_3").hide();
+                                $(".seq_4").hide();
+                                $(".seq_5").hide();
+                                $('#moveOn').on('click',function(){
+                                    $(".seq_1").show(1500);
+                                    $(".seq_0_wrong").hide(1550);
+                                });
+                            });
+                        </script>
+
+                    </div>
+
+                </div>
+               <%}%>
+                <%}%>
+                <%if(user.revision_progress==2||user.revision_progress==1){%>
+
+                <div class="seq_1">
+
+                    <% if (message.length > 0) { %>
+                    <div class="alert alert-danger"><%= message %>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    </div>
+                    <% } %>
+                    <h4>Write a simple program that adds all integer numbers from 1 to 10(the program should print out the result) </h4>
+                    <form id="myform" name="myform" method="post" action="/q2_revision">
+                        <code>
+                        <textarea rows="22" cols="55" name="code" contenteditable="true" style="line-height: 15px;" >
+#include &lt;stdio.h&gt;
+
+int main()
+
+{
+
+int sum = 0;
+int i = 0;
+
+/*Code Goes Here*/
+
+
+printf("Sum = %d",sum);
+return 0;
+
+}
+                        </textarea>
+                        </code>
+                        <br/>
+                        <br/>
+                        <button class="btn btn-outlined btn-theme btn-md" type="submit"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
+
+                    </form>
+                    <script>
+                        $(document).ready(function(){
+                            $(".seq_2").hide();
+                            $(".seq_3").hide();
+                            $(".seq_4").hide();
+                            $(".seq_5").hide();
+                        });
+                    </script>
+                </div>
+
+
+                <%if(user.revision_score.q2==1){%>
+                <div class="seq_1_correct">
+                    <h4>Good Answer!</h4>
+                    <h5>Statistically, using a for loop for this type of question is the way to go</h5><br>
+                    <pre>
+                        <code class="language-c">
+#include &lt;stdio.h&gt;
+int main(){
+int sum=0;
+int i=0;
+
+for(i=0;i<=10;i++){
+    printf("Sum is %d",sum);
+    }
+return 0;
+}
+
+                        </code>
+                    </pre><br>
+
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+                    <script>
+                        swal("Good job!", "You're on a roll!", "success");
+                        $(".seq_1").hide();
+                        $(".seq_2").hide();
+                        $(".seq_3").hide();
+                        $(".seq_4").hide();
+                        $(".seq_5").hide();
+                        $('#moveOn').on('click',function(){
+                            $(".seq_2").show(1500);
+                            $(".seq_1_correct").hide(1550);
+                        });
+                    </script>
+                </div>
+                <%} if(user.revision_score.q2==1.5){%>
+                <div class="seq_1_cheating">
+                    I seem to detect some form of cheating
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+                    <script>
+                        $(".seq_1").hide();
+                        $(".seq_2").hide();
+                        $(".seq_3").hide();
+                        $(".seq_4").hide();
+                        $(".seq_5").hide();
+                        $('#moveOn').on('click',function(){
+                            $(".seq_2").show(1500);
+                            $(".seq_1_cheating").hide(1550);
+                        });
+                    </script>
+                </div>
+                <%}if(user.revision_score.q2==2){%>
+                <div class="seq_1_logic_error">
+                    Logic Error
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+                    <script>
+                        $(".seq_1").hide();
+                        $(".seq_2").hide();
+                        $(".seq_3").hide();
+                        $(".seq_4").hide();
+                        $(".seq_5").hide();
+                        $('#moveOn').on('click',function(){
+                            $(".seq_2").show(1500);
+                            $(".seq_1_logic_error").hide(1550);
+                        });
+                    </script>
+                </div>
+                <%}if(user.revision_score.q2==2.5){%>
+                <div class="seq_1_logic_error">
+                    Logic Error
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+                    <script>
+                        $(".seq_1").hide();
+                        $(".seq_2").hide();
+                        $(".seq_3").hide();
+                        $(".seq_4").hide();
+                        $(".seq_5").hide();
+                        $('#moveOn').on('click',function(){
+                            $(".seq_2").show(1500);
+                            $(".seq_1_logic_error").hide(1550);
+                        });
+                    </script>
+
+                </div>
+                  <%}%>
+                <%}%>
+
+                <div class="seq_2">
+                    <% if (message.length > 0) { %>
+                    <div class="alert alert-danger"><%= message %>
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    </div>
+                    <% } %>
+                    <h4>Write a simple program that <b><u> adds 2 integers together with their sum being equal to 10</u></b> (the program should print out the sum)</h4>
+
+                    <form id="myform" name="myform" method="post" action="/q3_revision">
+
+                        <div class="question_2"></div>
+                        <code>
+                        <textarea rows="20" cols="55" name="code" contenteditable="true" style="line-height: 15px;" >
+#include &lt;stdio.h&gt
+
+int main()
+
+{
+
+/*code goes here*/
+
+
+return 0;
+
+}
+                        </textarea>
+                        </code>
+                        <br/>
+                        <br/>
+
+                        <button class="btn btn-outlined btn-theme btn-md" type="submit"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
+
+                    </form>
+                </div>
+
+
+
+
+
+
+            </div><!--End of Panel body-->
+    </div><!--End of Panel-->
+</div><!--End of Container-->
+
+<%if((user.revision_progress==null) &&( user.revision_score.q1=null)){%>
+<script>
+    swal({
+        title: "Let the interrogation begin!",
+        text: "",
+        timer: 2000,
+        showConfirmButton: false,
+        imageUrl:'/images/reading-open-book.png'
+    });
+</script>
+<%}%>

@@ -13,6 +13,12 @@ module.exports = mongoose.model('User',{
         recognition : Number,
         application : Number
     },
+    common_errors:{
+        syntax:Number,
+        logic:Number
+
+    },
+    cheating_index:Number,
     learning_deficiency:{
         definition:Number,
         recognition: Number,
@@ -22,7 +28,15 @@ module.exports = mongoose.model('User',{
         ans1:Number,
         ans2:Number,
         ans3:Number
+    },
+    revision_progress:Number,
+    revision_score:{
+        q1:Number,
+        q2:Number,
+        q3:Number,
+        q4:Number,
+        q5:Number,
+        q6:Number
     }
-
 
 });

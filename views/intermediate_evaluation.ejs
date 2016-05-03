@@ -25,7 +25,7 @@
         <div class="seq_1" >
             <div class="qsn1" ng-app>
                 <form id="myform" name="myform" method="post" action="/q1_evaluation">
-                    <h4>When is the main function called?</h4>
+                    <h4>Where is the main function written?</h4>
                     <pre><code class="language-c">int main()</code></pre>
                     <h4>The main function is called: <span ng-bind = "answer" style="color: #6F5499 "></span></h4>
                     <input type="text" name="main_function" ng-model="answer" style="border-color: #6F5499" class="form-control input"><br><br>
@@ -42,6 +42,11 @@
         </div>
 
         <div class="seq_2">
+            <% if (message.length > 0) { %>
+            <div class="alert alert-danger"><%= message %>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            </div>
+            <% } %>
             <h4>Write a simple program that <b><u> adds 2 integers together with their sum being equal to 10</u></b> (the program should print out the sum)</h4>
 
                 <form id="myform" name="myform" method="post" action="/q2_evaluation">
@@ -68,7 +73,12 @@ return 0;
             </div>
 
         <div class="seq_3">
-           <h3> C Program to print first 10 Natural Numbers without using Conditional Loop </h3>
+           <h3> C Program to <b>print first 10 Natural Numbers using Conditional Loops</b> </h3>
+            <% if (message.length > 0) { %>
+            <div class="alert alert-danger "><%= message %>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            </div>
+            <% } %>
             <form id="myform" name="myform" method="post" action="/q3_evaluation">
 
                 <div class="question_2"></div>
@@ -104,7 +114,9 @@ $(document).ready( function() {
      $(".seq_0").show();
      $(".seq_1").hide();
      $(".seq_2").hide();
-$('#seq_0').on('click',function(){
+     $(".seq_3").hide();
+
+    $('#seq_0').on('click',function(){
      $(".seq_1").show(1500);
      $(".seq_0").hide();
      $(".seq_2").hide();
@@ -117,6 +129,8 @@ $('#seq_0').on('click',function(){
         $(".seq_2").show();
         $(".seq_0").hide();
         $(".seq_1").hide();
+        $(".seq_3").hide();
+
         $('#seq_0').on('click',function(){
             $(".seq_1").show(1500);
             $(".seq_0").hide();

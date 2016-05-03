@@ -14,7 +14,12 @@
                 <div class="qsn1">
                     <div class="questions"></div>
                     <form id="myform" name="myform" method="post" action="/q1">
-                    <h4>When is the main function called?</h4>
+                        <% if (message.length > 0) { %>
+                        <div class="alert alert-danger "><%= message %>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        </div>
+                        <% } %>
+                    <h4>Where is the main function written?</h4>
                         <pre><code class="language-c">int main()</code></pre>
                         <h4>The main function is called: <span ng-bind = "answer" style="color: #6F5499 "></span></h4>
                         <input type="text" name="main_function" ng-model="answer" style="border-color: #6F5499" class="form-control input"><br><br>
@@ -42,7 +47,7 @@
                             });
                             $('#moveOn').on('click',function(){
                                 $(".question3").show(1500);
-                                $("#correct1").hide();
+                                $("#correct1").hide(1550);
                             });
                         </script>
                          <%}if(q_response == 2){%>
@@ -193,7 +198,7 @@ return 0;
             <%if (q_response == 0.5){%>
             <div class="mess_code">
                 <div class = "alert alert-danger">
-                    Seems like you messed up the already existing code
+                    Seems like you messed up the already existing code.(Please try not to touch it.)
                     <br><br>
                     <button class='btn btn-outlined btn-theme btn-md' id='try_again'> Try again?</button>
                 </div>
@@ -221,6 +226,11 @@ return 0;
             <div class="question3" >
                 <div class="qsn3">
                     <form id="myform" name="myform" method="post" action="/q3">
+                        <% if (message.length > 0) { %>
+                        <div class="alert alert-danger "><%= message %>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        </div>
+                        <% } %>
 
                         <h4>What is the purpose of the printf() function</h4>
                         <pre><code class="language-c">printf()</code></pre>
