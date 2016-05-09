@@ -15,15 +15,17 @@
                     });
                 });
 
-
-
-
             </script>
             <button class="btn btn-outlined btn-theme btn-lg" id="seq_0" data-wow-delay="0.7s" style="border-radius: 0px;text-align: center">Continue</button>
 
         </div>
         <div class="seq_1" >
             <div class="qsn1" ng-app>
+                <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %>
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
+                <% } %>
                 <form id="myform" name="myform" method="post" action="/q1_evaluation">
                     <h4>Where is the main function written?</h4>
                     <pre><code class="language-c">int main()</code></pre>
@@ -31,12 +33,7 @@
                     <input type="text" name="main_function" ng-model="answer" style="border-color: #6F5499" class="form-control input"><br><br>
                     <button class="btn btn-outlined btn-theme btn-md"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
                 </form>
-                <script>
-                    $(document).ready(function(){
-                        $(".question3").hide();
-                        $(".question2").hide();
-                    });
-                </script>
+
             </div>
 
         </div>
@@ -53,7 +50,7 @@
 
                     <div class="question_2"></div>
                     <code>
-                        <textarea rows="13" cols="55" name="code" contenteditable="true" style="line-height: 15px;" >
+                        <textarea rows="20" cols="55" name="code" contenteditable="true" style="line-height: 15px;" >
 #include &lt;stdio.h&gt
 int main()
 {
@@ -73,7 +70,7 @@ return 0;
             </div>
 
         <div class="seq_3">
-           <h3> C Program to <b>print first 10 Natural Numbers using Conditional Loops</b> </h3>
+           <h3>Write a C Program to <b>print first 10 Natural Numbers using Conditional Loops</b> </h3>
             <% if (message.length > 0) { %>
             <div class="alert alert-danger "><%= message %>
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -83,10 +80,11 @@ return 0;
 
                 <div class="question_2"></div>
                 <code>
-                        <textarea rows="13" cols="55" name="code" contenteditable="true" style="line-height: 15px;" >
+                        <textarea rows="20" cols="55" name="code" contenteditable="true" style="line-height: 15px;" >
 #include &lt;stdio.h&gt
 int main()
 {
+
 
 
 return 0;
@@ -103,6 +101,20 @@ return 0;
 
         </div>
 
+        <div class="seq_4">
+            <form id="myform" name="myform" method="post" action="/q3">
+                <% if (message.length > 0) { %>
+                <div class="alert alert-danger "><%= message %>
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
+                <% } %>
+
+                <h4>What is the purpose of the printf() function</h4>
+                <pre><code class="language-c">printf()</code></pre>
+                <h4>The printf function : <span ng-bind = "answer3" style="color: #6F5499 "></span></h4>
+                <input type="text" name="printf" ng-model="answer3" style="border-color: #6F5499" class="form-control input"><br><br>
+                <button class="btn btn-outlined btn-theme btn-md"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
+            </form>
 
         </div>
     </div>
@@ -115,6 +127,10 @@ $(document).ready( function() {
      $(".seq_1").hide();
      $(".seq_2").hide();
      $(".seq_3").hide();
+     $(".seq_4").hide();
+     $(".seq_5").hide();
+     $(".seq_6").hide();
+     $(".seq_7").hide();
 
     $('#seq_0').on('click',function(){
      $(".seq_1").show(1500);
@@ -123,6 +139,25 @@ $(document).ready( function() {
     });
 });
 </script>
+<%}if(user.evaluation_progress == 0.5){%>
+<script>
+$(document).ready( function() {
+$(".seq_1").show();
+$(".seq_0").hide();
+$(".seq_2").hide();
+$(".seq_3").hide();
+$(".seq_4").hide();
+
+
+
+$('#seq_0').on('click',function(){
+$(".seq_1").show(1500);
+$(".seq_0").hide();
+$(".seq_2").hide();
+});
+});
+</script>
+
 <%}if(user.evaluation_progress == 1){%>
 <script>
     $(document).ready( function() {
@@ -130,6 +165,8 @@ $(document).ready( function() {
         $(".seq_0").hide();
         $(".seq_1").hide();
         $(".seq_3").hide();
+        $(".seq_4").hide();
+
 
         $('#seq_0').on('click',function(){
             $(".seq_1").show(1500);

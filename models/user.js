@@ -37,6 +37,14 @@ module.exports = mongoose.model('User',{
         q4:Number,
         q5:Number,
         q6:Number
-    }
+    },
+    lesson_answers:{
+        q_variable:Number,
+        q_intmain:Number
+    },
+    lesson3_progress:Number,
+    quiz2_progress:Number
+
+
 
 });

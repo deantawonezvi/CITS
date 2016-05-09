@@ -57,11 +57,17 @@ module.exports = function(passport,io){
   });
   /* Handle Logout */
   router.get('/signout', function(req, res) {
-    req.logout();
-    res.redirect('/');
+      req.session.destroy(function (err) {
+          res.redirect('/'); //Inside a callback… bulletproof!
+      });
   });
     router.get('/profile', isLoggedIn, function(req, res){
-    res.render('profile.ejs', { user: req.user, out:output, q_response:qresonse, q_progress: progress,message: req.flash('message'),info: req.flash('info') });
+        res.render('profile.ejs', { user: req.user, out:output,
+            q_response:qresonse,
+            q_progress: progress,
+            message: req.flash('message'),
+            info: req.flash('info') });
+
   });
     router.post('/profile', function(req,res){
         req.user.skill_level = req.body.skill_level;
@@ -71,9 +77,9 @@ module.exports = function(passport,io){
                 return err;
          });
         res.redirect('/profile');
-        res.redirect('/profile');
 
     });
+
     router.post('/lesson_1', function(req,res){
         req.user.lesson_counter = 1;
 
@@ -116,6 +122,27 @@ module.exports = function(passport,io){
                 }
             });
          res.redirect('/profile')
+
+        }
+
+
+
+    });
+
+    router.post('/lesson_4',function(req,res){
+
+        if (req.body.feedback == "quiz"){
+
+            req.user.update({
+                    lesson_counter:4,
+                    quiz_counter:3
+                },
+                function(err){
+                    if (err){
+                        return err;
+                    }
+                });
+            res.redirect('/profile')
 
         }
 
@@ -391,38 +418,57 @@ module.exports = function(passport,io){
                 output = data.output;
                 res.redirect('/profile');
                 req.user.learning_rate.application = application_counter;
-
                 req.user.save(function(err){
                     if(err) throw err;
                 });
 
             }
             console.log(qresonse);
+            compiler.flush(function(){
+                console.log('All temporary files flushed !');
+            });
         });
     });
 
     router.post('/q_variable', function(req,res){
         qresonse = 0;
+
+        req.user.quiz2_progress = 1;
+        req.user.save(function (err) {
+            if (err) throw err;
+        });
         var variable_answer = nlp.q_variable(req.body.variable);
 
-        //correct answer
-        if(variable_answer == 1){
-            qresonse = 1;
+
+        if (tokenizer.tokenize(req.body.variable).length < 2) {
+            req.flash('message','I cannot accept that as an answer. Please try again.');
+            res.redirect("/profile");
+        }
+        else {
+            //correct answer
+            if (variable_answer == 1) {
+                req.user.lesson_answers.q_variable = 1;
+                req.user.save(function (err) {
+                    if (err) throw err;
+                });
+            }
+            //Wrong Answer
+            if (variable_answer == 1.5) {
+                req.user.lesson_answers.q_variable = 1.5;
+                req.user.save(function (err) {
+                    if (err) throw err;
+                });
+            }
+            //Totally Wrong Answer
+            if (variable_answer == 2) {
+                req.user.lesson_answers.q_variable = 2;
+                req.user.save(function (err) {
+                    if (err) throw err;
+                });
+            }
+            console.log(qresonse);
 
         }
-        //Wrong Answer
-        if(variable_answer == 1.5){
-            qresonse = 1.5;
-
-        }
-        //Totally Wrong Answer
-        if(variable_answer == 2){
-            qresonse = 2;
-
-        }
-        console.log(qresonse);
-
-
         res.redirect('/profile');
 
 
@@ -430,43 +476,166 @@ module.exports = function(passport,io){
 
     });
 
+    router.post('/q_variable_program', function(req,res){
+        var code = req.body.code;
+        var correct_code = new RegExp(/int\s*\w+\s*;/);
+        var correct_result = correct_code.test(code);
+
+        req.user.update({quiz2_progress: 2}, function (err) {
+            if (err) {
+                return err;
+            }
+        });
+        var envData = { OS : "windows" , cmd : "g++"};
+        compiler.compileCPP(envData , code  , function (data) {
+
+            if(data.error) {
+                console.log(data.error);
+                var flow = nools.flow("Addition Program Error", function (flow) {
+
+                    this.rule("Missing Semicolon 1", [String, "s", "s =~ /error: expected ',' or ';'/"], function (facts) {
+                        req.flash('message','Your code is missing something. A semicolon! (;)');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Missing Semicolon 2", [String, "s", "s =~ /error: expected ';' before/"], function (facts) {
+                        req.flash('message','Your code is missing something. A semicolon! (;)');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Missing Semicolon 3", [String, "s", "s =~ /error: expected initializer/"], function (facts) {
+                        req.flash('message','Your code is missing something. A semicolon! (;)');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Undeclared variable", [String, "s", "s =~ /error: expected . before/"], function (facts) {
+                        req.flash('message','Some variable seems to be undeclared');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Undeclared variable 2", [String, "s", "s =~ /was not declared in this scope/"], function (facts) {
+                        req.flash('message','Some variable seems to be undeclared. Please make sure that each variable has its appropriate variable type');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Typecasting", [String, "s", "s =~ /error: invalid conversion from/"], function (facts) {
+                        res.send("Type Casting");
+                    });
+                    this.rule("Messed with return statement", [String, "s", "s =~ /error: return-statement with no value./"], function (facts) {
+                        res.send("Messed with the return statement");
+                    });
+                    this.rule("Messed with #include statement 1", [String, "s", "s =~ /error: missing terminating . character/"], function (facts) {
+                        req.flash('message','Messed with #include statement. Please DO NOT mess around with the already existing code');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Messed with #include statement 2", [String, "s", "s =~ /error: 'include' does not name a type/"], function (facts) {
+                        req.flash('message','Messed with #include statement. Please DO NOT mess around with the already existing code');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Messed with #include statement 3", [String, "s", "s =~ /No such file or directory #include./"], function (facts) {
+                        req.flash('message','Messed with #include statement. Please DO NOT mess around with the already existing code');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Messed with #include statement 4", [String, "s", "s =~ /or #include stdio.h> ^/"], function (facts) {
+                        req.flash('message','Messed with #include statement. Please DO NOT mess around with the already existing code');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Messed with #include statement 5", [String, "s", "s =~ /error: invalid preprocessing directive./"], function (facts) {
+                        req.flash('message','Messed with #include statement. Please DO NOT mess around with the already existing code');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Missing int main() or it is in wrong position 1", [String, "s", "s =~ /error: expected unqualified-id before/"], function (facts) {
+                        req.flash('message','Something is wrong with your code.I think it has something to do with your int main() function');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Missing int main() or it is in wrong position 2", [String, "s", "s =~ /warning: extended initializer lists/"], function (facts) {
+                        req.flash('message','Something is wrong with your code.I think it has something to do with your int main() function');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Missing int main() or it is in wrong position 3", [String, "s", "s =~ /token int main/"], function (facts) {
+                        req.flash('message','Something is wrong with your code.I think it has something to do with your int main() function');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Top curly bracket missing", [String, "s", "s =~ /error: named return values are./"], function (facts) {
+                        req.flash('message','Top curly bracket missing');
+                        res.redirect("/profile");
+                    });
+                    this.rule("Bottom curly bracket missing", [String, "s", "s =~ /error: expect at end of input/"], function (facts) {
+                        req.flash('message','Bottom curly bracket missing');
+                        res.redirect("/profile");
+                    });
+
+                });
+                var session = flow.getSession();
+
+                session.assert(data.error);
+                session.match();
+                session.retract(data.error);
+                nools.deleteFlow(flow);
+            }
+
+            else{
+                if (correct_result==true){
+                    res.send("Well Done");
+                }
+                else{
+                    res.send("Follow Instructions");
+                }
+
+
+            }
+
+        })
+
+    });
+
     router.post('/q1_evaluation', function(req,res){
         var ans =0;
         var q1 = nlp.q_mainfunction(req.body.main_function);
-        req.user.evaluation_progress = 1;
+        req.user.evaluation_progress = 0.5;
         req.user.save(function(err){
             if(err) throw err;
         });
-        if(q1 == 1){
-            ans = 1;
-            req.user.evaluation_score.ans1 = ans;
-            req.user.save(function(err){
-                if(err) throw err;
-            });
-            res.redirect('/profile');
-            console.log(ans);
+
+        if (tokenizer.tokenize(req.body.main_function).length < 2) {
+            req.flash('message','I cannot accept that as an answer. Please try again.');
+            res.redirect("/profile");
         }
-        // Wrong Answer
-        if(q1 == 1.5){
-             ans = 1.5;
-            console.log(ans);
-            req.user.evaluation_score.ans1 = ans;
-            req.user.save(function(err){
-                if(err) throw err;
-            });
-            res.redirect('/profile');
+        else {
 
-        }
-        if(q1 == 2){
-            ans = 2;
-            console.log(ans);
-            req.user.evaluation_score.ans1 = ans;
-            req.user.save(function(err){
-                if(err) throw err;
-            });
-            res.redirect('/profile');
+            if (q1 == 1) {
+                req.user.evaluation_progress = 1;
+                req.user.save(function(err){
+                    if(err) throw err;
+                });
+                ans = 1;
+                req.user.evaluation_score.ans1 = ans;
+                req.user.save(function (err) {
+                    if (err) throw err;
+                });
+                res.redirect('/profile');
+                console.log(ans);
+            }
+            // Wrong Answer
+            if (q1 == 1.5) {
+                ans = 1.5;
+                req.user.evaluation_progress = 1;
+                console.log(ans);
+                req.user.evaluation_score.ans1 = ans;
+                req.user.save(function (err) {
+                    if (err) throw err;
+                });
+                res.redirect('/profile');
+
+            }
+            if (q1 == 2) {
+                ans = 2;
+
+                req.user.evaluation_progress = 1;
+                console.log(ans);
+                req.user.evaluation_score.ans1 = ans;
+                req.user.save(function (err) {
+                    if (err) throw err;
+                });
+                res.redirect('/profile');
 
 
+            }
         }
         console.log(qresonse);
 

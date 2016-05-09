@@ -1,0 +1,158 @@
+<div class="container">
+    <div class="panel panel-default" style="font-family: Courier;">
+        <div class="panel-heading" style="text-align: center;font-size: x-large; color: #6f5499 "><i class="fa fa-bell-o"></i> Revision Time</div>
+        <div class="panel-body">
+            <div class="qsn1">
+                <form id="myform" name="myform" method="post" action="/q_variable">
+                    <h4>Just to make sure that we are on the same page. Could you please explain what a variable is?</h4><hr/>
+                    <h4>A variable is : <span ng-bind = "v_answer" style="color: #6F5499 "></span></h4>
+                    <input type="text" name="variable" ng-model="v_answer" style="border-color: #6F5499" class="form-control input"><br><br>
+                    <button class="btn btn-outlined btn-theme btn-md"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
+                </form>
+                <%if (user.quiz2_progress == null){%>
+                <script>
+                    $(document).ready( function() {
+                        $(".qsn2").hide();
+                        $(".qsn3").hide();
+                    });
+                </script>
+                <%}%>
+            </div>
+            <% if(user.quiz2_progress == 1){%>
+
+            <% if(user.lesson_answers.q_variable == 1){%>
+            <div id="correct_v">
+                <div class="alert alert-success fade in" id="correct1">
+                    <div class="v_correct"></div>
+                </div>
+                <br>
+                <button class="btn btn-outlined btn-theme btn-md" id="moveOn"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button><br>
+            </div>
+            <script>
+                swal("Good Job", "Couldn't have said any better.", "success");
+
+                $(document).ready( function() {
+                    $(".qsn1").hide();
+                    $(".qsn2").hide();
+
+
+                    $("#moveOn").click(function(){
+                        $("#correct_v").hide(1550);
+                        $(".qsn2").show(1500);
+                    });
+                });
+            </script>
+            <%} if(user.lesson_answers.q_variable == 1.5){%>
+            <div id="wrong_v">
+                <div class="alert alert-danger">
+                    <div class="v_wrong"></div>
+                    <br>
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn2"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button>                </div>
+            </div>
+            <script>
+                swal("Oops!", "I think you answered the wrong question.", "error");
+
+                $(document).ready( function() {
+                    $(".seq_0").hide();
+                    $(".seq_1").hide();
+
+                    $("#moveOn2").click(function(){
+                        $("#wrong_v").hide(1550);
+                        $(".qsn2").show(1500);
+                    });
+                });
+            </script>
+
+            <%}if (user.lesson_answers.q_variable == 2){%>
+            <div id="totallywrong_v">
+                <div class="alert alert-danger">
+                    <div class="v_totallywrong"></div>
+                    <br>
+                    <button class="btn btn-outlined btn-theme btn-md" id="moveOn3"  data-wow-delay="0.7s" style="border-radius: 0px">Move On</button>
+                </div>
+            </div>
+            <script>
+                swal("Oops!", "I think you answered the wrong question.", "error");
+                $(document).ready( function() {
+                    $(".seq_0").hide();
+                    $(".seq_1").hide();
+
+                    $("#moveOn3").click(function(){
+                        $("#totallywrong_v").hide(1550);
+                        $(".qsn2").show(1500);
+                    });
+                });
+            </script>
+                <%}%>
+            <%}%>
+
+            <div class="qsn2">
+                <% if (message.length>0) { %>
+                <div class="alert alert-danger"><%= message %>
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
+                <% } %>
+                <form id="myform" name="myform" method="post" action="/q_variable_program">
+<h4>Declare a simple variable of type <b>int</b>, named <b>myVariable</b></h4>
+                    <code>
+                        <textarea rows="13" cols="55" name="code" id="code" contenteditable="true" style="line-height: 15px;" >
+#include &lt;stdio.h&gt;
+int main()
+{
+/*Code Goes Here*/
+
+return 0;
+}
+                        </textarea>
+                    </code>
+                    <br/>
+                    <br/>
+
+                    <button class="btn btn-outlined btn-theme btn-md" type="submit"  data-wow-delay="0.7s" style="border-radius: 0px">Answer</button><br>
+
+                </form>
+                <%if(user.quiz2_progress==2){%>
+                <script>
+                    $(document).ready( function() {
+                        $(".qsn1").hide();
+                        });
+                </script>
+                <%}%>
+
+            </div>
+
+
+        </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>  $(function(){
+        $(".v_correct").typed({
+            strings: ["<h4> Correct </h4><br> " +
+            "<h5>A variable is a name given to a storage area that our programs can manipulate</h5>"],
+            typeSpeed: 25,
+            showCursor: false
+        });
+    });
+    $(function(){
+        $(".v_wrong").typed({
+            strings: ["<h4> Wrong </h4><br>" +
+            "<h5>A variable is a name given to a storage area that our programs can manipulate</h5>"],
+            typeSpeed: 25,
+            showCursor: false
+        });
+    });
+    $(function(){
+        $(".v_totallywrong").typed({
+            strings: ["<h4> Totally Wrong </h4><br>"+
+            "<h5>A variable is a name given to a storage area that our programs can manipulate</h5>"],
+            typeSpeed: 25,
+            showCursor: false
+        });
+    });
+
+</script>
+

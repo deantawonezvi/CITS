@@ -32,7 +32,11 @@
 
         <!-- show any messages that come back with authentication -->
         <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
+        <div class="alert alert-danger"><%= message %>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+
+
         <% } %>
 
         <!-- LOGIN FORM -->

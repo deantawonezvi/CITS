@@ -44,7 +44,7 @@ module.exports = {
         classifier.addDocument("prints the output to the screen","correct");
         classifier.addDocument("reveals the output of the program","correct");
         classifier.addDocument("does not print the output of the program", "wrong");
-        classifier.addDocument("display the input of the program", "wrong");
+        //classifier.addDocument("display the input of the program", "wrong");
         classifier.addDocument("does not show the output of the program", "wrong");
         classifier.addDocument(["not","cannot","does not"], "wrong");
         classifier.train();
